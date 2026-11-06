@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+  Política de red.
+
+  Por omisión sólo se permite HTTPS, que es lo correcto. Si tu servidor
+  está en una intranet cerrada y todavía no tiene certificado, añade su
+  dirección al bloque de abajo: nunca actives el tráfico sin cifrar de
+  forma general.
+
+  Recuerda que sin HTTPS el navegador tampoco puede abrir la aplicación
+  sin cobertura; dentro del APK eso no aplica, pero el resto de razones
+  para poner un certificado siguen ahí.
+-->
+<network-security-config>
+
+    <base-config cleartextTrafficPermitted="false">
+        <trust-anchors>
+            <certificates src="system" />
+            <!-- Descomenta si usas un certificado propio instalado en el
+                 dispositivo por el MDM de la empresa:
+            <certificates src="user" />
+            -->
+        </trust-anchors>
+    </base-config>
+
+    <!--
+      Para un servidor de intranet sin certificado, descomenta y pon la
+      dirección real. Sólo esa: no uses cleartextTrafficPermitted global.
+
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">192.168.1.50</domain>
+        <domain includeSubdomains="true">partes.local</domain>
+    </domain-config>
+    -->
+
+</network-security-config>

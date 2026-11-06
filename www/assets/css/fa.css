@@ -1,0 +1,30 @@
+/* =====================================================================
+   Font Awesome, empaquetado con la aplicación.
+   No se carga de internet: en el hotel puede no haberlo, y la aplicación
+   tiene que funcionar sin cobertura. Sólo la tipografía «solid», que trae
+   1.353 iconos en 154 KB; las marcas comerciales no se incluyen.
+   ===================================================================== */
+
+@font-face {
+  font-family: 'FA';
+  font-style: normal;
+  font-weight: 900;
+  font-display: block;
+  src: url('../iconos/fa-solid-900.woff2') format('woff2');
+}
+
+/* Ocupa lo mismo que los iconos propios (24 px), para que nada se mueva
+   de sitio al cambiar uno por otro. */
+.fa {
+  font-family: 'FA';
+  font-weight: 900;
+  font-style: normal;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px; height: 24px;
+  font-size: 18px;
+  line-height: 1;
+  flex: 0 0 auto;
+  -webkit-font-smoothing: antialiased;
+}

@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="es" translate="no">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="light dark">
+<meta name="theme-color" content="#0B5563" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#08151A" media="(prefers-color-scheme: dark)">
+<title>HuraKan Tick · Ticketing</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="assets/icons/icono.svg" type="image/svg+xml">
+
+<script>
+  /* Forzar HTTPS, también aquí: marco.html se abre directamente y es la
+     página de arriba; si sólo lo mirara la aplicación de dentro, el
+     navegador seguiría en http. */
+  (function () {
+    try {
+      var enLocal = /^(localhost$|127\.|\[::1\])/.test(location.hostname);
+      if (location.protocol !== 'http:' || enLocal) { return; }
+      if (localStorage.getItem('hurakantick_https') === '1') {
+        location.replace(location.href.replace(/^http:/, 'https:'));
+      }
+    } catch (e) { /* sin localStorage: lo mirará la aplicación */ }
+  })();
+
+  /* Antes de pintar nada: ¿toca de verdad el marco?
+
+     Se sale a la aplicación normal si no toca —un marcador viejo, el
+     ajuste apagado desde otro aparato, una pantalla de móvil— o si esta
+     página se ha abierto ella misma dentro de un marco. Sin esto último,
+     un enlace mal puesto metería marcos dentro de marcos. */
+  (function () {
+    var pagina = 'index.html';
+    var qs = new URLSearchParams(location.search);
+    // Sólo páginas conocidas: el marco no carga cualquier dirección que
+    // le pasen, que es la puerta a meter aquí una web ajena.
+    var permitidas = ['index.html', 'guia.html', 'diagnostico.html'];
+    if (permitidas.indexOf(qs.get('pagina')) !== -1) pagina = qs.get('pagina');
+    qs.delete('pagina');
+    var resto = (qs.toString() ? '?' + qs.toString() : '') + location.hash;
+
+    window.__destino = pagina + resto;
+
+    var v = null;
+    try { v = JSON.parse(localStorage.getItem('hurakantick_vista_movil') || 'null'); } catch (e) {}
+
+    var corto = Math.min(screen.width || 0, screen.height || 0);
+    var noToca = window.top !== window.self || !v || !v.on
+              || corto < 600 || window.Capacitor;
+
+    if (noToca) {
+      document.documentElement.style.visibility = 'hidden';
+      location.replace(window.__destino);
+      window.__saliendo = true;
+    } else {
+      window.__vista = v;
+    }
+  })();
+</script>
+
+<style>
+  :root {
+    --marca: #0B5563;
+    --fondo-a: #E9EEF0;
+    --fondo-b: #D6E1E4;
+    --bisel: #0E1F24;
+    --tinta: #1C2B30;
+
+    /* Alto entre ancho de la pantalla del teléfono. Lo pisa el script con
+       la proporción elegida. */
+    --r: 2.1667;
+
+    /* Cuánto aire se deja alrededor y lo ancho que puede llegar a ser.
+       El tope de ancho importa: con un monitor grande, sin él la
+       «pantalla del teléfono» mediría 900 px y la aplicación pintaría su
+       diseño de tableta. Un móvil grande de verdad mide unos 430. */
+    --margen: 26px;
+    --bisel-grosor: 11px;
+    --ancho-max: 440px;
+    --ancho-min: 320px;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root { --fondo-a: #0B171B; --fondo-b: #132A30; --bisel: #000; --tinta: #D7E2E5; }
+  }
+
+  html, body { margin: 0; height: 100%; }
+
+  body {
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    font: 14px/1.4 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    color: var(--tinta);
+    background:
+      radial-gradient(1200px 700px at 50% -10%, color-mix(in srgb, var(--marca) 22%, transparent), transparent 70%),
+      linear-gradient(160deg, var(--fondo-a), var(--fondo-b));
+  }
+
+  /* El teléfono. El alto sale del más pequeño de tres límites: lo que
+     cabe de alto, lo que permite el ancho respetando la proporción, y el
+     tope de ancho. El ancho sale del alto. Así la proporción se mantiene
+     en cualquier ventana. */
+  .telefono {
+    --hueco: calc(2 * (var(--margen) + var(--bisel-grosor)));
+    --alto: min(
+      calc(100vh - var(--hueco)),
+      calc((100vw - var(--hueco)) * var(--r)),
+      calc(var(--ancho-max) * var(--r))
+    );
+    position: relative;
+    padding: var(--bisel-grosor);
+    border-radius: calc(var(--bisel-grosor) + 32px);
+    background: var(--bisel);
+    box-shadow:
+      0 0 0 1px rgb(255 255 255 / .06) inset,
+      0 30px 70px -20px rgb(6 20 24 / .55),
+      0 12px 26px -12px rgb(6 20 24 / .45);
+    animation: aparece 380ms cubic-bezier(.2,.7,.3,1) both;
+  }
+  @supports (height: 100dvh) {
+    .telefono {
+      --alto: min(
+        calc(100dvh - var(--hueco)),
+        calc((100vw - var(--hueco)) * var(--r)),
+        calc(var(--ancho-max) * var(--r))
+      );
+    }
+  }
+
+  .pantalla {
+    display: block;
+    height: var(--alto);
+    /* Si la ventana es muy baja, se prefiere un teléfono algo más
+       achaparrado a uno en el que no quepa nada: por debajo de 320 de
+       ancho la aplicación no se puede usar. */
+    width: max(var(--ancho-min), calc(var(--alto) / var(--r)));
+    border: 0;
+    border-radius: 32px;
+    background: #fff;
+    overflow: hidden;
+  }
+
+  @keyframes aparece {
+    from { opacity: 0; transform: translateY(14px) scale(.985); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* Cuando la ventana ya es de móvil —alguien la estrecha, o una
+     tableta pequeña en vertical—, el marco sobra: se quita el bisel y la
+     aplicación ocupa todo. Sigue siendo responsive hasta el final. */
+  @media (max-width: 560px), (max-height: 480px) {
+    body { display: block; }
+    .telefono { padding: 0; border-radius: 0; box-shadow: none; animation: none; }
+    .pantalla {
+      width: 100vw; height: 100vh; border-radius: 0;
+    }
+    @supports (height: 100dvh) { .pantalla { height: 100dvh; } }
+    .completa { display: none !important; }
+  }
+
+  /* «Pantalla completa»: sólo si la persona puede cambiarlo. */
+  .completa {
+    position: fixed; top: 16px; right: 16px;
+    display: inline-flex; align-items: center; gap: 7px;
+    padding: 9px 14px;
+    border: 1px solid rgb(0 0 0 / .08);
+    border-radius: 999px;
+    background: rgb(255 255 255 / .82);
+    backdrop-filter: blur(8px);
+    color: var(--tinta);
+    font: 600 13px/1 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    cursor: pointer;
+    box-shadow: 0 4px 14px rgb(0 0 0 / .08);
+    transition: transform .15s ease, background .15s ease;
+  }
+  /* El atributo «hidden» se aplica con un display:none del navegador que
+     cualquier «display» propio anula. Sin esta línea, el botón salía en
+     el modo «para todos», que es justo donde no hay nada que cambiar. */
+  .completa[hidden] { display: none !important; }
+  .completa:hover  { background: #fff; }
+  .completa:active { transform: scale(.96); }
+  .completa:focus-visible { outline: 3px solid var(--marca); outline-offset: 2px; }
+  @media (prefers-color-scheme: dark) {
+    .completa { background: rgb(20 40 46 / .8); border-color: rgb(255 255 255 / .1); }
+    .completa:hover { background: rgb(28 54 62 / .95); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .telefono { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="telefono" id="telefono">
+  <iframe class="pantalla" id="app" title="HuraKan Tick"
+          allow="camera; clipboard-read; clipboard-write; web-share; fullscreen; geolocation"></iframe>
+</div>
+
+<button class="completa" id="b-completa" type="button" hidden>
+  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M8 3H5a2 2 0 0 0-2 2v3M21 8V5a2 2 0 0 0-2-2h-3M3 16v3a2 2 0 0 0 2 2h3M16 21h3a2 2 0 0 0 2-2v-3"/>
+  </svg>
+  Pantalla completa
+</button>
+
+<script>
+(function () {
+  if (window.__saliendo) return;
+
+  var RATIOS = { '9:16': 16 / 9, '9:19.5': 19.5 / 9, '9:20': 20 / 9 };
+  var app = document.getElementById('app');
+  var boton = document.getElementById('b-completa');
+  var raiz = document.documentElement;
+
+  function aplicar(v) {
+    raiz.style.setProperty('--r', String(RATIOS[v.ratio] || RATIOS['9:19.5']));
+    if (v.color && /^#[0-9a-f]{6}$/i.test(v.color)) raiz.style.setProperty('--marca', v.color);
+    boton.hidden = !v.puede;
+  }
+
+  /** Dónde está ahora la aplicación, para volver a ella al salir. */
+  function dondeEsta() {
+    try {
+      var l = app.contentWindow.location;
+      var pag = l.pathname.split('/').pop() || 'index.html';
+      return pag + l.search + l.hash;
+    } catch (e) {
+      return window.__destino;
+    }
+  }
+
+  function salir() {
+    raiz.style.visibility = 'hidden';
+    location.replace(dondeEsta());
+  }
+
+  /* La dirección de arriba sigue a la de dentro, para que recargar o
+     copiar el enlace lleve al mismo sitio. Se reemplaza, no se añade:
+     la historia ya la lleva el iframe, y duplicarla haría que «atrás»
+     necesitara dos toques. */
+  function reflejar() {
+    try {
+      var l = app.contentWindow.location;
+      var pag = l.pathname.split('/').pop() || 'index.html';
+      var qs = new URLSearchParams(l.search);
+      if (pag !== 'index.html') qs.set('pagina', pag);
+      var s = qs.toString();
+      history.replaceState(null, '', 'marco.html' + (s ? '?' + s : '') + l.hash);
+      if (app.contentDocument && app.contentDocument.title) {
+        document.title = app.contentDocument.title;
+      }
+    } catch (e) { /* otra página ajena dentro: no se refleja */ }
+  }
+
+  app.addEventListener('load', function () {
+    reflejar();
+    try {
+      app.contentWindow.addEventListener('hashchange', reflejar);
+      app.contentWindow.addEventListener('popstate', reflejar);
+    } catch (e) {}
+  });
+
+  // El aviso del navegador cuando la aplicación cambia el ajuste.
+  window.addEventListener('storage', function (e) {
+    if (e.key !== 'hurakantick_vista_movil') return;
+    var v = null;
+    try { v = JSON.parse(e.newValue || 'null'); } catch (x) {}
+    if (!v || !v.on) { salir(); return; }
+    aplicar(v);
+  });
+
+  boton.addEventListener('click', function () {
+    // Lo decide la aplicación, que es quien guarda las preferencias.
+    try {
+      app.contentWindow.postMessage({ tipo: 'hurakantick-vista-movil', accion: 'salir' }, location.origin);
+    } catch (e) { salir(); }
+  });
+
+  aplicar(window.__vista);
+  app.src = window.__destino;
+})();
+</script>
+</body>
+</html>

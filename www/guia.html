@@ -1,0 +1,2824 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Guía de uso · HuraKan Tick</title>
+<meta name="description" content="Cómo se usa el sistema de partes del Hotel Benalma, paso a paso y con ejemplos reales.">
+<link rel="stylesheet" href="assets/css/app.css">
+<link rel="stylesheet" href="assets/css/guia.css">
+<link rel="icon" href="assets/img/icono-192.png">
+</head>
+<body>
+
+<div class="guia">
+
+  <header class="guia-cab">
+    <div class="guia-cab__fila">
+      <button class="guia-volver" id="b-volver" aria-label="Volver a la aplicación">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 12H5M12 19l-7-7 7-7"/>
+        </svg>
+      </button>
+      <div>
+        <h1>Guía de uso</h1>
+        <p>Hotel Benalma · Servicios Técnicos</p>
+      </div>
+    </div>
+
+    <div class="guia-buscar" id="caja-buscar">
+      <span class="guia-buscar__lupa">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2.2" stroke-linecap="round" aria-hidden="true">
+          <circle cx="11" cy="11" r="7"/><path d="M21 21l-4.3-4.3"/>
+        </svg>
+      </span>
+      <input type="search" id="q" placeholder="Buscar en la guía…"
+             autocomplete="off" aria-label="Buscar en la guía">
+      <button class="guia-buscar__limpiar" id="b-limpiar" aria-label="Limpiar la búsqueda">×</button>
+      <p class="guia-buscar__cuenta" id="cuenta" role="status" aria-live="polite"></p>
+    </div>
+  </header>
+
+  <div class="guia-puesto" id="puesto">
+    <p class="guia-puesto__t">¿Qué haces en el hotel?</p>
+    <div class="guia-puesto__b">
+      <button type="button" data-p="todo" aria-pressed="true">Verlo todo</button>
+      <button type="button" data-p="recepcion" aria-pressed="false">Sólo aviso</button>
+      <button type="button" data-p="tecnico" aria-pressed="false">Técnico</button>
+      <button type="button" data-p="responsable" aria-pressed="false">Responsable</button>
+      <button type="button" data-p="admin" aria-pressed="false">Administrador</button>
+    </div>
+    <p class="guia-puesto__n" id="puesto-nota"></p>
+  </div>
+
+  <nav class="guia-indice" aria-label="Índice de la guía">
+    <h2>En esta guía</h2>
+    <ol>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#quien-es-quien">Quién es quién</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#entrar">Entrar la primera vez</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#el-inicio">El inicio, de un vistazo</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#moverse">Moverse por la aplicación</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#un-parte">Un parte por dentro</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#dar-parte">Dar un parte</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#donde-es">Decir dónde es</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#que-pasa-despues">Qué pasa después</a></li>
+      <li data-papeles="tecnico responsable admin"><a href="#recibir">Recibir el trabajo</a></li>
+      <li data-papeles="tecnico responsable admin"><a href="#trabajarlo">Trabajar el parte</a></li>
+      <li data-papeles="tecnico responsable admin"><a href="#cerrarlo">Cerrarlo bien</a></li>
+      <li data-papeles="responsable admin"><a href="#repartir">Repartir el trabajo</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#buscar-filtrar">Buscar y filtrar</a></li>
+      <li data-papeles="responsable admin"><a href="#varios-a-la-vez">Varios partes a la vez</a></li>
+      <li data-papeles="admin"><a href="#administrar">La pantalla de administración</a></li>
+      <li data-papeles="admin"><a href="#el-equipo">Dar de alta a alguien</a></li>
+      <li data-papeles="admin"><a href="#los-departamentos">Los departamentos</a></li>
+      <li data-papeles="admin"><a href="#las-ubicaciones">Montar las ubicaciones</a></li>
+      <li data-papeles="responsable admin"><a href="#preventivo">Mantenimiento preventivo</a></li>
+      <li data-papeles="tecnico responsable admin"><a href="#instrucciones">Las instrucciones</a></li>
+      <li data-papeles="tecnico responsable admin"><a href="#aparatos">Aparatos con número de serie</a></li>
+      <li data-papeles="responsable admin"><a href="#informes">Los informes</a></li>
+      <li data-papeles="admin"><a href="#copias">Copias de seguridad</a></li>
+      <li data-papeles="admin"><a href="#borrar">Ocultar, eliminar y la papelera</a></li>
+      <li data-papeles="admin"><a href="#registro">El registro de seguridad</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#sin-cobertura">Trabajar sin cobertura</a></li>
+      <li data-papeles="tecnico responsable admin"><a href="#conflictos">Cuando dos cambian lo mismo</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#avisos">Los avisos</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#mensajes">Hablar por la aplicación</a></li>
+      <li data-papeles="recepcion tecnico responsable admin"><a href="#apariencia">Ajustar la pantalla</a></li>
+    </ol>
+  </nav>
+
+  <main class="guia-cuerpo" id="cuerpo">
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="quien-es-quien" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">1</span> Quién es quién</h2>
+      <p class="guia-seccion__intro">
+        Cada persona ve una aplicación distinta. No es que haya botones escondidos:
+        es que a un técnico no le hace falta la pantalla de copias de seguridad, y a
+        recepción no le hace falta ninguna más que «avisar». Esto es lo que hay
+        montado en el Hotel Benalma.
+      </p>
+
+      <div class="guia-gente">
+        <div class="guia-persona">
+          <span class="guia-persona__ini">DM</span>
+          <span class="guia-persona__txt">
+            <b>Daniel Melgar</b>
+            <small>daniel.melgar@hotelbenalma.com</small>
+          </span>
+          <span class="guia-papel guia-papel--admin">Administrador</span>
+        </div>
+        <div class="guia-persona">
+          <span class="guia-persona__ini">CD</span>
+          <span class="guia-persona__txt">
+            <b>Carlos Duarte</b>
+            <small>carlos.duarte@hotelbenalma.com · Servicios Técnicos</small>
+          </span>
+          <span class="guia-papel guia-papel--resp">Responsable</span>
+        </div>
+        <div class="guia-persona">
+          <span class="guia-persona__ini">D</span>
+          <span class="guia-persona__txt">
+            <b>David</b>
+            <small>david.sstt@hotelbenalma.com · Servicios Técnicos</small>
+          </span>
+          <span class="guia-papel guia-papel--tec">Técnico</span>
+        </div>
+        <div class="guia-persona">
+          <span class="guia-persona__ini">FP</span>
+          <span class="guia-persona__txt">
+            <b>Fany Prieto</b>
+            <small>fany.prieto@hotelbenalma.com · Pisos / Limpieza</small>
+          </span>
+          <span class="guia-papel guia-papel--resp">Responsable</span>
+        </div>
+        <div class="guia-persona">
+          <span class="guia-persona__ini">P</span>
+          <span class="guia-persona__txt">
+            <b>Pisos</b>
+            <small>pisos@hotelbenalma.com · Pisos / Limpieza</small>
+          </span>
+          <span class="guia-papel guia-papel--tec">Técnico</span>
+        </div>
+        <div class="guia-persona">
+          <span class="guia-persona__ini">R</span>
+          <span class="guia-persona__txt">
+            <b>Recepción</b>
+            <small>recepcion@hotelbenalma.com · Recepción</small>
+          </span>
+          <span class="guia-papel">Sólo avisar</span>
+        </div>
+      </div>
+
+      <h3>Qué puede hacer cada uno</h3>
+      <p style="color:var(--tinta-2);line-height:1.58;margin:0 0 10px">
+        Cada papel incluye lo que puede hacer el anterior:
+      </p>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0">
+        <li><b>Sólo avisar</b> — da partes y ve los suyos. Recepción avisa de que
+            la 412 no tiene agua caliente y ahí acaba su trabajo.</li>
+        <li><b>Técnico</b> — recibe partes, escribe lo que va haciendo, sube fotos
+            y los cierra. Ve los de su departamento.</li>
+        <li><b>Responsable</b> — además reparte el trabajo de su departamento,
+            cambia plazos y prioridades, y saca informes.</li>
+        <li><b>Administrador</b> — además maneja el equipo, las ubicaciones, los
+            catálogos, las copias de seguridad y la papelera.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>El departamento manda más que el papel.</strong> David es técnico
+          de Servicios Técnicos: no puede tocar un parte de Pisos aunque lo tenga
+          delante. Eso evita que dos departamentos se pisen el trabajo.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="entrar" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">2</span> Entrar la primera vez</h2>
+      <p class="guia-seccion__intro">
+        La aplicación se abre en el navegador del móvil, con la dirección que os
+        haya dado sistemas. No hace falta instalar nada para empezar.
+      </p>
+
+      <ol class="guia-pasos">
+        <li class="guia-paso">
+          <h4>Abre la dirección</h4>
+          <p>
+            La primera vez conviene guardarla en la pantalla de inicio del móvil:
+            en el menú del navegador, <b>«Añadir a pantalla de inicio»</b>. A partir
+            de ahí se abre como cualquier otra aplicación, a pantalla completa.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Escribe tu usuario —o tu correo— y la contraseña</h4>
+          <p>
+            Vale cualquiera de los dos: <b>david</b> o
+            <b>david.sstt@hotelbenalma.com</b>. No importan las mayúsculas ni las
+            tildes: «recepción» y «recepcion» son la misma cuenta.
+          </p>
+          <p>
+            Las cuentas de puesto —<b>recepcion</b>, <b>pisos</b>— entran sólo con
+            el usuario: son de quien esté de turno y no tienen correo de nadie.
+          </p>
+          <p>
+            Si no te sabes la contraseña, abajo hay <b>«He olvidado la
+            contraseña»</b>: la pides y Daniel te da un código de seis cifras.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Toca «Entrar»</h4>
+          <p>
+            La sesión dura <b>30 días</b> en ese móvil. No hay que entrar cada
+            mañana.
+          </p>
+        </li>
+      </ol>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/01-entrar.png" alt="Pantalla de entrada, con los campos vacíos"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>La pantalla de entrada. Abajo del todo se ve a qué servidor
+            se está conectando.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/02-entrar-relleno.png" alt="La misma pantalla con el usuario y la contraseña escritos"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>David a punto de entrar. El ojo de la derecha enseña la
+            contraseña por si te has equivocado.</figcaption>
+        </figure>
+      </div>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>A los ocho intentos fallidos la cuenta se bloquea un rato.</strong>
+          Es a propósito: así nadie puede ir probando contraseñas. <b>Se suelta
+          sola en quince minutos</b>, así que lo normal es esperar y volver a
+          intentarlo; si tienes prisa, Daniel la desbloquea desde <b>Equipo</b> en
+          un momento.
+        </span>
+      </div>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Mientras está bloqueada, sigue diciendo «usuario o contraseña
+          incorrectos»</strong>, aunque la escribas bien. No es un fallo: si
+          dijera «esta cuenta está bloqueada», cualquiera podría averiguar quién
+          tiene cuenta en el hotel probando nombres. Por eso el propio mensaje te
+          dice que esperes unos minutos.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="el-inicio" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">3</span> El inicio, de un vistazo</h2>
+      <p class="guia-seccion__intro">
+        Lo primero que aparece al entrar. Está pensado para responder de un vistazo
+        a «¿qué tengo hoy?», sin tocar nada.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/03-inicio.png" alt="Pantalla de inicio de David con sus contadores y los partes más urgentes"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El inicio de David, un lunes por la mañana.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Los seis contadores</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Cada uno se toca y lleva a esa lista ya filtrada:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 16px">
+        <li><b>Asignados a mí</b> — lo que te toca a ti, con nombre y apellido.</li>
+        <li><b>Cola de mi grupo</b> — lo que ha entrado a tu departamento y todavía
+            no tiene a nadie. De ahí se coge trabajo cuando terminas lo tuyo.</li>
+        <li><b>Fuera de plazo</b> — en rojo, porque es lo que se está pasando de
+            fecha.</li>
+        <li><b>Urgentes</b> — prioridad alta o crítica, sin cerrar.</li>
+        <li><b>Resueltos o cerrados</b> — lo que ya está.</li>
+        <li><b>En espera</b> — parados por algo: falta un repuesto, hay que esperar
+            a que salga el cliente de la habitación.</li>
+      </ul>
+
+      <h3>Accesos rápidos</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Debajo de los contadores hay botones que llevan a las búsquedas de siempre
+        —«Urgentes abiertos», «Fuera de plazo»— y los <b>atajos</b> que cada uno se
+        haya guardado. Si repites una búsqueda todas las semanas, guárdala como
+        atajo y aparece aquí.
+      </p>
+
+      <h3>Lo más urgente</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0">
+        La lista de abajo enseña los partes que más corren, ya ordenados. Cada
+        tarjeta lleva el número, el estado, dónde es, cuánto lleva de retraso y quién
+        lo tiene. Se toca y se abre.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>El número de arriba, el de la campana,</strong> son tus avisos sin
+          leer. Se tocan y se ve qué ha pasado: un parte nuevo para ti, uno que se ha
+          pasado de plazo, alguien que ha escrito una nota.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="moverse" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">4</span> Moverse por la aplicación</h2>
+      <p class="guia-seccion__intro">
+        Toda la navegación está en la barra de abajo, al alcance del pulgar. Son
+        cinco sitios y no hay más.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/04-partes.png" alt="La lista de partes con su buscador y sus filtros"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>«Partes»: todo lo que puedes ver, con buscador y filtros.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/06-ajustes.png" alt="La pantalla de ajustes con las opciones de la cuenta"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>«Ajustes»: tu cuenta, la apariencia y —según el papel— la
+            administración.</figcaption>
+        </figure>
+      </div>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0">
+        <li><b>Inicio</b> — lo que acabamos de ver.</li>
+        <li><b>Partes</b> — la lista completa, con buscador y filtros.</li>
+        <li><b>+</b> — el botón grande del centro: dar un parte nuevo. Está en medio
+            porque es lo que más se usa.</li>
+        <li><b>Míos</b> — sólo los tuyos, sin filtrar nada.</li>
+        <li><b>Ajustes</b> — tu cuenta, la apariencia, y lo que te deje tu papel.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>El buscador no distingue tildes.</strong> Escribir «averia»
+          encuentra «avería», y «T-00024», «t-00024» y «00024» encuentran el mismo
+          parte. Con guantes y a media luz, eso se agradece.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="un-parte" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">5</span> Un parte por dentro</h2>
+      <p class="guia-seccion__intro">
+        Esta es la pantalla donde se trabaja de verdad. Conviene reconocer sus
+        partes antes de empezar a tocar.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/05-ficha-parte.png" alt="La ficha de un parte con su estado, descripción, instrucciones y ubicación"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Un parte de climatización abierto por David.</figcaption>
+        </figure>
+      </div>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0">
+        <li><b>Arriba</b> — el estado, la prioridad y, si se ha pasado de fecha,
+            cuánto lleva de retraso.</li>
+        <li><b>El número</b> — «T-00024». Es lo que se dice por radio: «el
+            veinticuatro».</li>
+        <li><b>Cómo se hace esto</b> — si el hotel tiene una instrucción para ese
+            tipo de avería, aparece aquí sola. No hay que ir a buscarla, y se lee
+            aunque no haya cobertura.</li>
+        <li><b>Ubicación</b> — la ruta completa, de la planta al rincón. Debajo,
+            «Ver todo lo de este sitio» enseña el histórico de esa habitación.</li>
+        <li><b>Más abajo</b> — las fotos, el historial de lo que ha ido pasando, y
+            los botones para trabajarlo.</li>
+      </ul>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>El aviso de la instrucción se lee antes de tocar nada.</strong>
+          En «Purgar el circuito» lo primero que pone es <em>«No purgues con la
+          bomba en marcha»</em>. Está ahí por algo.
+        </span>
+      </div>
+
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="dar-parte" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">6</span> Dar un parte</h2>
+      <p class="guia-seccion__intro">
+        Lo que más se usa, y por eso el botón está en el centro de la barra.
+        Seguimos un caso de verdad: <b>la clienta de la 412 llama a recepción a
+        las nueve y diez porque el aire no enfría</b>.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/10-inicio-recepcion.png" alt="El inicio tal como lo ve la cuenta de recepción"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Así ve el inicio quien sólo avisa: sin colas de trabajo ni
+            contadores que no le tocan.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/11-nuevo-vacio.png" alt="El formulario de parte nuevo, recién abierto"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El formulario al abrirlo. Arriba pone lo importante: «Todo
+            lo demás es opcional».</figcaption>
+        </figure>
+      </div>
+
+      <ol class="guia-pasos">
+        <li class="guia-paso">
+          <h4>Toca el <b>+</b> de la barra de abajo</h4>
+          <p>
+            Desde cualquier pantalla. No hace falta estar en ningún sitio
+            concreto.
+          </p>
+        </li>
+
+        <li class="guia-paso">
+          <h4>Di qué falla</h4>
+          <p>
+            Primero la familia —Climatización, Fontanería, Electricidad…— y dentro
+            el tipo concreto. También se puede <b>escribir el nombre</b> y saltarse
+            los dos pasos: «aire» lleva directo a «Aire acondicionado».
+          </p>
+          <p>
+            Debajo del selector aparecen los <b>seis tipos que más se usan en este
+            hotel</b>. Con el tiempo son casi siempre los que hacen falta, y se
+            eligen de un toque.
+          </p>
+        </li>
+
+        <li class="guia-paso">
+          <h4>Rellena lo que pida ese tipo de avería</h4>
+          <p>
+            Cada tipo pregunta lo suyo. El aire acondicionado pide la temperatura
+            marcada, la que hacía en realidad y si ya se han mirado los filtros;
+            una cerradura preguntaría otras cosas.
+          </p>
+          <p>
+            <b>Lo que lleve un asterisco rojo hay que rellenarlo</b>; lo decide el
+            administrador en Configuración, y el resto es opcional. Cuanto más se rellene, menos
+            vueltas dará el técnico. La diferencia entre «no enfría» y «marcaba 19
+            y hacía 26, filtros sin mirar» es un viaje a la habitación.
+          </p>
+        </li>
+
+        <li class="guia-paso">
+          <h4>Escribe el resumen</h4>
+          <p>
+            Una línea que se entienda leyéndola sola en una lista de cuarenta:
+            <b>«No enfría el aire de la 412»</b>. Lo demás va en la descripción.
+          </p>
+        </li>
+
+        <li class="guia-paso">
+          <h4>Elige dónde es</h4>
+          <p>Tiene su apartado justo debajo, porque es lo que más se falla.</p>
+        </li>
+
+        <li class="guia-paso">
+          <h4>Pon la prioridad</h4>
+          <p>
+            Cada una lleva su plazo al lado, y no es decorativo: es el tiempo que
+            tiene el técnico antes de que el parte salga en rojo.
+          </p>
+          <ul style="color:var(--tinta-2);line-height:1.7;padding-left:18px;margin:6px 0 0">
+            <li><b>Baja · 7d</b> — una semana. Puede esperar.</li>
+            <li><b>Normal · 3d</b> — tres días. Lo de todos los días.</li>
+            <li><b>Alta · 1d</b> — molesta a un cliente ahora mismo.</li>
+            <li><b>Urgente · 4h</b> — hay riesgo, o una habitación no se puede
+                vender.</li>
+          </ul>
+        </li>
+
+        <li class="guia-paso">
+          <h4>Cuenta lo que has visto</h4>
+          <p>
+            En la descripción: qué pasa, desde cuándo, y lo que haga falta saber
+            antes de subir. <em>«La clienta avisa a las 9:10. El equipo arranca
+            pero sale aire templado. Habitación ocupada hasta el jueves.»</em>
+          </p>
+          <p>
+            Eso último —que está ocupada— es justo lo que evita que el técnico suba
+            a una hora mala.
+          </p>
+        </li>
+
+        <li class="guia-paso">
+          <h4>Los atajos de debajo</h4>
+          <p>
+            Bajo «Elegir qué falla» hay unos cuantos tipos a un toque, para no
+            buscarlos. El administrador decide cuántos salen —de cero a seis— y
+            de dónde: lo más usado en el hotel, lo de tu departamento,
+            <b>lo que más usas tú</b>, o una lista que elige él.
+          </p>
+        </li>
+
+        <li class="guia-paso">
+          <h4>Comprueba el departamento y guarda</h4>
+          <p>
+            Se rellena solo según lo que falla: el aire va a Servicios Técnicos.
+            Si te equivocas no pasa nada, un responsable lo mueve en dos toques.
+          </p>
+        </li>
+      </ol>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/12-que-falla.png" alt="El selector de tipo de avería, con las familias"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Las familias. Arriba, el buscador para ir directo.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/18-nuevo-relleno.png" alt="El formulario con el aire acondicionado elegido y sus campos propios"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Con «Aire acondicionado» elegido aparecen sus preguntas:
+            temperatura, modo y filtros.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/19-nuevo-abajo.png" alt="La parte de abajo del formulario: prioridad, descripción y departamento"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>La parte de abajo: prioridad con su plazo, descripción y
+            departamento.</figcaption>
+        </figure>
+      </div>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Sólo hacen falta dos cosas:</strong> qué falla y una línea de
+          resumen. Todo lo demás ayuda, pero un parte a medias entregado a tiempo
+          vale más que uno perfecto que nadie llegó a dar.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="donde-es" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">7</span> Decir dónde es</h2>
+      <p class="guia-seccion__intro">
+        El hotel tiene <b>1.285 ubicaciones</b>, del sótano a la terraza. Hay dos
+        formas de llegar a la que buscas, y una es mucho más rápida que la otra.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/14-ubicacion-inicio.png" alt="El selector de ubicación, con el buscador arriba y los cuatro niveles debajo"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Buscar arriba, bajar por niveles abajo.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/15-ubicacion-buscando.png" alt="Al escribir 412 salen las tres partes de esa habitación"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Escribiendo «412» salen las tres partes de la habitación.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Si sabes la habitación: escríbela</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Toca <b>«Buscar por nombre o número»</b> y escribe <b>412</b>. Salen las
+        tres partes de esa habitación —baño, dormitorio y terraza— y eliges la que
+        toca. Dos toques y a otra cosa.
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 6px">
+        Vale también el nombre: «cocina», «lavandería», «piscina». Y no distingue
+        tildes.
+      </p>
+
+      <h3>Si no la sabes: baja por niveles</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Cuatro escalones, y se pueden usar <b>en el orden que quieras</b>:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 6px">
+        <li><b>Zona</b> — habitaciones, cocina, zonas comunes, exteriores…</li>
+        <li><b>Planta</b> — de la 01 a la 16, más sótano y cubierta.</li>
+        <li><b>Lugar</b> — la habitación, el office, la sala de máquinas.</li>
+        <li><b>SubLugar</b> — dormitorio, baño, terraza.</li>
+      </ul>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0">
+        Es útil cuando el aviso llega como «algo en la terraza del restaurante» y
+        hay que ir acotando.
+      </p>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Afina lo que puedas.</strong> «Planta 04 › Habitaciones › 412 ›
+          Baño» hace que el técnico vaya a un sitio. «Planta 04» hace que pregunte.
+          Y con el tiempo, esa precisión es la que permite ver que <em>la 412
+          lleva tres averías de aire este año</em>.
+        </span>
+      </div>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Se puede dejar sin ubicación.</strong> El botón está ahí abajo.
+          Para un aviso general —«falta papel en el almacén»— no hace falta
+          inventarse un sitio.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="que-pasa-despues" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">8</span> Qué pasa después</h2>
+      <p class="guia-seccion__intro">
+        Le das a «Crear parte» y el trabajo sale de recepción. Esto es lo que
+        ocurre sin que nadie tenga que hacer nada.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/20-parte-creado.png" alt="El parte recién creado, con su número asignado"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El parte ya tiene número: T-00030.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/21-mios-recepcion.png" alt="La lista de partes dados por recepción"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>En «Avisos», recepción ve lo que ha dado y cómo va.</figcaption>
+        </figure>
+      </div>
+
+      <ol class="guia-pasos">
+        <li class="guia-paso">
+          <h4>Le toca un número</h4>
+          <p>
+            <b>T-00030</b>. Ese número es el que se dice por radio y el que sirve
+            para buscarlo después. Se puede buscar entero, en minúsculas o sólo las
+            cifras.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Entra en la cola de Servicios Técnicos</h4>
+          <p>
+            Todavía sin nombre: aparece en «Cola de mi grupo» de David y de
+            cualquiera del departamento. Carlos, como responsable, decide si se lo
+            asigna a alguien o lo coge el primero que quede libre.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Suena el aviso en los móviles</h4>
+          <p>
+            Los del departamento reciben la notificación. Si es urgente, además
+            suena distinto.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Empieza a correr el plazo</h4>
+          <p>
+            Prioridad alta, 24 horas. A partir de mañana a las 9:10 el parte
+            aparecerá en rojo en «Fuera de plazo», y se mandará un aviso.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Recepción lo sigue desde «Avisos»</h4>
+          <p>
+            Sin llamar a nadie ni bajar al taller: ahí se ve el estado, quién lo
+            lleva y las notas que va escribiendo. Cuando se cierra, también.
+          </p>
+        </li>
+      </ol>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Sin cobertura funciona igual.</strong> El parte se guarda en el
+          móvil y sube solo en cuanto hay red. Sale una nube en la tarjeta mientras
+          está pendiente. En el sótano y en las cámaras esto pasa a diario.
+        </span>
+      </div>
+
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="recibir" data-papeles="tecnico responsable admin">
+      <h2><span class="guia-seccion__n">9</span> Recibir el trabajo</h2>
+      <p class="guia-seccion__intro">
+        Seguimos el mismo parte. Ahora está en la cola de Servicios Técnicos y
+        <b>David</b> entra a ver qué hay.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/30-avisos.png" alt="La lista de avisos de David"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Los avisos: partes nuevos, cambios y lo que se ha pasado de
+            plazo.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/32-parte-sin-coger.png" alt="El parte abierto, todavía sin asignar a nadie"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El parte antes de tocarlo: «Pendiente Asignar», sin nombre.</figcaption>
+        </figure>
+      </div>
+
+      <h3>De dónde sale el trabajo</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>La campana</b> — avisa de lo que ha llegado. El número rojo son los
+            sin leer.</li>
+        <li><b>«Cola de mi grupo»</b> — lo que ha entrado al departamento y no
+            tiene dueño. De ahí se coge cuando terminas lo tuyo.</li>
+        <li><b>«Asignados a mí»</b> — lo que te ha puesto Carlos con nombre y
+            apellido.</li>
+      </ul>
+
+      <h3>«Me lo quedo»</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Es el botón más importante de la ficha. De un toque el parte pasa a tu
+        nombre y todo el mundo lo ve.
+      </p>
+      <div class="guia-nota">
+        <span>
+          <strong>Cógelo antes de subir, no después.</strong> Si dos técnicos
+          suben a la misma habitación, se ha perdido un viaje. En cuanto lo tienes
+          a tu nombre, los demás lo ven y se dedican a otra cosa.
+        </span>
+      </div>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/33-me-lo-quedo.png" alt="El parte ya asignado a David"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Ya lleva su nombre y ha pasado a «Asignado».</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="trabajarlo" data-papeles="tecnico responsable admin">
+      <h2><span class="guia-seccion__n">10</span> Trabajar el parte</h2>
+      <p class="guia-seccion__intro">
+        Mientras se hace el trabajo, la ficha se va llenando. No es papeleo: es lo
+        que permite que otro siga por donde tú lo dejaste, y que dentro de un año
+        se sepa qué se hizo en esa habitación.
+      </p>
+
+      <h3>Las notas</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        El botón <b>«Nota»</b> abre una hoja con dos cosas: lo que escribes y
+        <b>cuánto has tardado</b>. Los minutos van con botones —15 min, 30 min,
+        1 h, 2 h— para no tener que escribir cifras con guantes.
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 12px">
+        Merece la pena escribir dos: una al llegar, con lo que te encuentras, y
+        otra al terminar, con lo que has hecho. Así:
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <em>«Subo a la 412. El filtro está sucio y el desagüe atascado: por eso
+          no enfría y hay humedad en la pared.»</em><br>
+          <em>«Filtro limpiado y desagüe desatascado. Ya enfría. Aviso a Pisos por
+          la humedad de la pared.» — 30 min</em>
+        </span>
+      </div>
+
+      <h3>Las fotos</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        El botón <b>«Foto»</b> abre la cámara directamente. Una foto del filtro
+        sucio explica en un segundo lo que en texto son tres líneas —y sirve de
+        prueba si alguien pregunta por qué había que cambiar el equipo.
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 4px">
+        Se pueden subir varias. Se guardan reducidas para no llenar el móvil ni
+        tardar en cargar.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/34-escribir-nota.png" alt="La hoja de nota, con el texto escrito y los minutos"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>La nota, con los minutos de un toque.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/35-parte-con-foto.png" alt="El parte con la foto ya subida"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>La foto queda en la ficha, a la vista.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/36-historial.png" alt="El historial del parte con todo lo que ha ido pasando"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El historial: quién hizo qué y cuándo.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Los estados</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        <b>«Cambiar estado»</b> dice en qué punto está. Los que no cierran el parte:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 10px">
+        <li><b>En Curso</b> — lo estás haciendo ahora.</li>
+        <li><b>Programado</b> — tiene día y hora, normalmente porque hay que
+            entrar en una habitación ocupada.</li>
+        <li><b>Pte. Terceros</b> — esperando a una empresa de fuera o a un
+            repuesto.</li>
+        <li><b>Pte. Usuario</b> — esperando a que alguien conteste o deje entrar.</li>
+      </ul>
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Los estados de espera valen para algo.</strong> Un parte en
+          «Pte. Terceros» sigue abierto pero se entiende por qué. Dejarlo en
+          «Asignado» tres semanas parece que nadie lo ha mirado.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="cerrarlo" data-papeles="tecnico responsable admin">
+      
+      <h2 id="ap-chat"><span class="num">10b</span> Hablar con quien lo abrió</h2>
+      <p>Hay dos formas de entrar: el icono de conversación de arriba, con el
+        número de mensajes sin leer, y la fila <b>«Conversación»</b> dentro del
+        propio parte. Sirve para lo que el seguimiento no cubre:
+        <b>contestarle a quien dio el aviso</b>.</p>
+      <p>Y cuando alguien te escribe, el aviso te lleva directo a la
+        conversación, no a la ficha: lo que hay que hacer con un mensaje es
+        leerlo y contestar.</p>
+      <p>El caso típico: recepción avisa de que la caja fuerte de la 801 no va,
+        el técnico sube y resulta que la caja está bien, lo que pasa es que el
+        cliente no sabía cerrarla. Si eso no vuelve a recepción, el parte se
+        cierra y <b>el cliente se queja otra vez</b>.</p>
+      <p>Al escribir se puede marcar <b>Importante</b>. Entonces el mensaje sale
+        en el inicio de los demás —«1 mensaje importante sin leer»— hasta que
+        alguien lo lea. Es la única forma de que se entere quien abre veinte
+        partes al día y no vuelve a mirarlos.</p>
+      <p>Debajo de cada mensaje propio pone <b>quién lo ha leído</b>. Eso importa:
+        sin acuse de lectura, «ya te lo dije» no vale para nada.</p>
+      <p class="nota">Sin cobertura se puede escribir igual: el mensaje se queda
+        en el móvil marcado como «esperando señal» y sale solo en cuanto hay
+        línea. Lo que no se ve sin conexión es lo que hayan escrito otros
+        mientras tanto, y la pantalla lo avisa.</p>
+
+<h2><span class="guia-seccion__n">11</span> Cerrarlo bien</h2>
+      <p class="guia-seccion__intro">
+        Tres estados cierran el parte, y la aplicación lo avisa al elegirlos:
+        <b>«Cierra el parte»</b>.
+      </p>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Resuelta</b> — arreglado. Es el de siempre.</li>
+        <li><b>Cerrado</b> — se da por terminado sin haberlo arreglado: se cambió
+            el equipo entero, o dejó de tener sentido.</li>
+        <li><b>Cancelada</b> — no había avería. Falsa alarma o duplicado.</li>
+      </ul>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/37-cambiar-estado.png" alt="La lista de estados, con el aviso de cuáles cierran el parte"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Los que cierran vienen marcados.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/38-resolver.png" alt="Al resolver, la aplicación pide una nota de cierre"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Al cerrar pide contar qué se hizo.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/39-parte-resuelto.png" alt="El parte ya resuelto"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Resuelto, con toda su historia dentro.</figcaption>
+        </figure>
+      </div>
+
+      <h3>La nota de cierre</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Al cerrar, la aplicación vuelve a pedir una nota. No es por insistir: es la
+        que se lee dentro de seis meses, cuando la misma habitación vuelve a dar
+        guerra.
+      </p>
+      <div class="guia-nota">
+        <span>
+          <em>«Filtro limpio y desagüe libre. Comprobado: enfría a 21°.»</em><br>
+          Eso, dentro de un año, dice si el problema volvió o es otro distinto.
+          <b>«Arreglado»</b> no dice nada.
+        </span>
+      </div>
+
+      <h3>Qué pasa al cerrar</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li>Sale de las listas de trabajo y deja de contar como pendiente.</li>
+        <li><b>Recepción recibe el aviso</b> de que está resuelto.</li>
+        <li>Los minutos se suman al parte y salen en los informes.</li>
+        <li>Si vuelve a pasar, se puede <b>reabrir</b>: el estado «Reabierta» está
+            para eso, y conserva todo el historial.</li>
+      </ul>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>No hace falta cerrarlo delante del cliente.</strong> Sin
+          cobertura se guarda igual y sube en cuanto hay red. Lo importante es
+          escribirlo mientras se acuerda uno.
+        </span>
+      </div>
+
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="repartir" data-papeles="responsable admin">
+      
+      <h2 id="ap-programar"><span class="num">11b</span> Aparcar un parte hasta una fecha</h2>
+      <p>Recepción avisa de que la caja fuerte de la 801 no va, pero el cliente
+        tiene el cartel de <b>no molestar hasta el día 30</b>. El parte no se puede
+        perder, pero tampoco tiene que estar ensuciando la lista de hoy.</p>
+      <p>Se puede dejar programado <b>al crearlo</b> —en el alta hay un interruptor
+        «Publicarlo más adelante»— o después, cambiando el estado a
+        <b>Programado</b>, que pide el día <b>y la hora</b>: no es lo mismo «el 30
+        por la mañana» que a las seis de la tarde. A partir de ahí el parte <b>no sale en la lista de quien lo tiene
+        que atender</b> hasta ese día. Sí lo siguen viendo quien lo abrió —para
+        saber que su aviso está registrado— y los responsables, que necesitan ver
+        lo que viene.</p>
+      <p><b>Y la fecha se puede mover.</b> El cliente alarga la estancia, la pieza
+        no llega, el gremio cambia el día: en un parte que ya está
+        <b>Programado</b> se vuelve a tocar el estado y se pone otro día y otra
+        hora, tantas veces como haga falta. Cada cambio queda en el historial del
+        parte con quién lo movió, así que al final se ve por qué algo lleva tres
+        semanas esperando.</p>
+
+      <p class="nota">Es distinto de un mantenimiento programado: aquello se repite
+        solo cada cierto tiempo; esto es para un caso puntual.</p>
+
+      <h2 id="ap-estados2"><span class="num">11c</span> Cada estado pide lo suyo</h2>
+      <p>Al cambiar de estado ya no se pregunta siempre lo mismo:</p>
+      <ul>
+        <li><b>Programado</b>: hasta qué día y por qué.</li>
+        <li><b>Pte. Terceros</b>: a quién se espera, de qué empresa —ofrece las que
+          ya se han usado antes— y qué se está esperando. Así, dos semanas después,
+          se sabe a quién había que llamar.</li>
+        <li><b>Resuelta</b> o <b>Cerrado</b>: qué has hecho y cuánto tiempo.</li>
+        <li><b>Pendiente Asignar</b> o <b>Reabierta</b>: nada obligatorio. Se está
+          devolviendo a la cola, no contando trabajo hecho.</li>
+      </ul>
+      <p class="nota">En <b>Ajustes → Conversaciones</b> están todas las
+        conversaciones en las que participas, por orden del último mensaje y con
+        lo que queda sin leer arriba. Sirve para volver a una sin tener que
+        acordarse de en qué parte era.</p>
+
+<h2><span class="guia-seccion__n">12</span> Repartir el trabajo</h2>
+      <p class="guia-seccion__intro">
+        <b>Carlos</b> es responsable de Servicios Técnicos. Su trabajo no es
+        arreglar: es que a nadie se le quede un parte olvidado y que cada uno tenga
+        lo suyo.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/40-inicio-responsable.png" alt="El inicio de Carlos, con los contadores de todo el departamento"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El inicio de un responsable: los números son de todo el
+            departamento, no sólo los suyos.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/42-sin-asignar.png" alt="La lista filtrada por «Sin asignar»"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>«Sin asignar»: lo que ha entrado y no tiene dueño. Doce
+            partes esperando.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Por dónde empieza la mañana</h3>
+      <ol class="guia-pasos">
+        <li class="guia-paso">
+          <h4>Mira «Fuera de plazo»</h4>
+          <p>
+            En rojo, arriba del todo. Es lo que ya se ha pasado de fecha y hay que
+            resolver o justificar hoy.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Luego «Sin asignar»</h4>
+          <p>
+            Lo que entró anoche y nadie ha cogido. De ahí sale el reparto del día.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Asigna con nombre</h4>
+          <p>
+            Abre el parte, toca <b>«Asignar»</b> y luego <b>«Quién lo hace»</b>. Sale
+            el equipo del departamento, más dos opciones útiles: <b>«A mí»</b> y
+            <b>«Dejar sin asignar»</b>, que lo devuelve a la cola.
+          </p>
+        </li>
+      </ol>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/45-asignar.png" alt="El botón asignar ofrece quién lo hace o a qué departamento va"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Dos cosas distintas: a quién, o a qué departamento.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/45b-quien-lo-hace.png" alt="El equipo del departamento, para elegir a quién asignar"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El equipo, con «A mí» arriba para lo que coge uno mismo.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Pasarlo a otro departamento</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        La otra opción de «Asignar». Recepción da los partes lo mejor que puede,
+        pero una humedad en la pared puede acabar siendo cosa de Pisos y no de
+        Servicios Técnicos. Se pasa en dos toques y le llega el aviso a
+        <b>Fany</b>.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Asignar no es urgir.</strong> El plazo lo pone la prioridad, no
+          el nombre. Si algo corre de verdad, sube la prioridad: eso es lo que hace
+          que salga en rojo y que suene el aviso.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="buscar-filtrar" data-papeles="recepcion tecnico responsable admin">
+      
+      <h2 id="ap-obs"><span class="num">12b</span> Que otro lo siga sin trabajarlo</h2>
+      <p>A veces un parte lo lleva un departamento pero le interesa a otro. La
+        caja fuerte la arregla servicios técnicos, pero <b>recepción necesita
+        seguirlo</b>: es quien da la cara con el cliente.</p>
+      <p>En <b>Reasignar → Quién lo sigue</b> se puede añadir a una persona o a un
+        departamento entero. Quien lo sigue <b>ve el parte y puede escribir en su
+        conversación</b>, pero no lo trabaja: no cambia su estado ni se lo queda.</p>
+      <p>Y se entera de todo: recibe aviso al ponerle, y <b>los mensajes de la
+        conversación le llegan como a los demás</b>, con su «sin leer» en el
+        inicio. Para eso se le pone.</p>
+      <p>La diferencia con darle el departamento adicional a esa persona es
+        importante: el departamento adicional le abre <b>todos</b> los partes del
+        otro departamento; esto, sólo ése.</p>
+      <p class="nota">Lo pone y lo quita un responsable, y queda apuntado en el
+        historial del parte. En la ficha sale un apartado «También lo siguen»
+        —sólo si hay alguien, claro—.</p>
+
+
+      <h2 id="ap-pasar"><span class="num">12c</span> Pasarle un parte a otra persona</h2>
+      <p>Cualquiera puede pasar su parte a <b>un compañero de su departamento</b>,
+        a <b>un responsable</b> —cuando se atasca o no le toca— o a <b>otro
+        departamento</b>, si el goteo del lavabo resulta ser del aire
+        acondicionado.</p>
+      <p>Las tres cosas vienen abiertas de fábrica y se cierran por separado en
+        <b>Configuración → Comportamiento</b>. Y si se cierra una para todos pero
+        hace falta abrírsela a alguien, se hace en su ficha, en
+        <b>Permisos adicionales</b>: lo de la persona manda sobre lo general, y
+        sólo para dar más.</p>
+
+<h2><span class="guia-seccion__n">13</span> Buscar y filtrar</h2>
+      <p class="guia-seccion__intro">
+        Con cien partes abiertos, encontrar el que buscas es la mitad del trabajo.
+        La pantalla «Partes» tiene dos herramientas: el buscador y los filtros.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/41-lista.png" alt="La lista de partes con la fila de filtros arriba"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Los filtros rápidos: en el móvil, una fila que se desliza con el dedo; en el ordenador se reparten en varias filas.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/43-filtro-estado.png" alt="El filtro por estado, desplegado"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Los filtros con lista propia se abren en una hoja.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Los filtros rápidos</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Abiertos</b> — todo lo que no está cerrado.</li>
+        <li><b>Míos</b> — los que llevan tu nombre.</li>
+        <li><b>De mi grupo</b> — los del departamento, con dueño o sin él.</li>
+        <li><b>Sin asignar</b> — los que esperan a que alguien los coja.</li>
+        <li><b>Fuera de plazo</b> — los que se han pasado de fecha.</li>
+      </ul>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 14px">
+        Y cuatro más que abren su propia lista: <b>Estado</b>, <b>Área</b>,
+        <b>Clase</b> y <b>Prioridad</b>. Se combinan entre sí: «abiertos + fuera de
+        plazo + climatización» es una sola pantalla.
+      </p>
+
+      <h3>El buscador</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Busca a la vez en el resumen, la descripción, la ubicación y el número.
+        Y perdona lo que hay que perdonar:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 12px">
+        <li><b>Sin tildes</b> — «averia» encuentra «avería».</li>
+        <li><b>Sin mayúsculas</b> — da igual cómo se escriba.</li>
+        <li><b>Por número suelto</b> — «24» encuentra el T-00024.</li>
+        <li><b>Por sitio</b> — «412» saca todo lo de esa habitación.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Funciona sin cobertura.</strong> La búsqueda se hace en el propio
+          móvil sobre lo que tiene descargado, así que responde igual de rápido en
+          el sótano.
+        </span>
+      </div>
+
+      <h3>Los atajos</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Si repites una búsqueda todas las semanas, se guarda como atajo y aparece
+        en el inicio, bajo «Accesos rápidos». Se crean desde
+        <b>Ajustes → Administración → Atajos</b>, y los crea un administrador.
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0">
+        Ejemplos que funcionan bien: «Climatización sin asignar», «Urgentes de
+        Pisos», «Fuera de plazo de esta semana».
+      </p>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="varios-a-la-vez" data-papeles="responsable admin">
+      <h2><span class="guia-seccion__n">14</span> Varios partes a la vez</h2>
+      <p class="guia-seccion__intro">
+        Cuando hay que mover quince partes de departamento o cerrar los del mes,
+        hacerlo uno a uno son quince minutos. Hay dos formas de hacerlo de golpe.
+      </p>
+
+      <h3>Desde la lista</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        El botón de la cabecera enciende el <b>modo selección</b>: cada parte se
+        marca al tocarlo y abajo aparece la barra de acciones.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/48-seleccionados.png" alt="Tres partes marcados, con la barra de acciones abajo"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Tres marcados. La barra de abajo dice cuántos son.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/48b-acciones-lote.png" alt="Las tres acciones que se pueden hacer sobre varios partes"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Tres acciones sobre los tres partes.</figcaption>
+        </figure>
+      </div>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Cambiar el estado</b> — cerrar de golpe lo que ya está hecho.</li>
+        <li><b>Asignar a alguien</b> — repartir una tanda entera.</li>
+        <li><b>Ocultar de las listas</b> — para duplicados y falsas alarmas. Sólo lo hace un administrador, y queda apuntado en el historial de cada parte.</li>
+      </ul>
+
+      <h3>Desde «Gestión de partes»</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        En <b>Ajustes → Administración</b>, para administradores. Es la misma idea con más sitio: filtros
+        propios, ordenar por antigüedad y <b>«Marcar todos»</b>.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/49-gestion-partes.png" alt="La pantalla de gestión de partes en lote"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Gestión de partes: para reorganizar de verdad.</figcaption>
+        </figure>
+      </div>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Todo queda en el historial de cada parte.</strong> Cambiar
+          quince de golpe deja quince apuntes, con quién lo hizo y cuándo. No es
+          un cambio silencioso en la base de datos.
+        </span>
+      </div>
+
+      <div class="guia-nota guia-nota--no">
+        <span>
+          <strong>Cuidado con «Eliminar».</strong> Ese sí borra de verdad: el
+          parte, su historial, sus notas y sus fotos. Avisa antes, y hay papelera
+          para recuperar lo que se manda a ella — pero eliminar no tiene vuelta.
+        </span>
+      </div>
+
+      <h2 id="ap-listas"><span class="num">14b</span> Lo mismo en las demás listas</h2>
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/102-equipo-filtros.png" alt="La lista del equipo con su buscador, sus filtros y las acciones en masa"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El equipo: buscador, cuatro filtros y cuatro acciones en masa.</figcaption>
+        </figure>
+      </div>
+
+      <p>Buscar, filtrar y actuar sobre varios a la vez no es sólo cosa de los
+        partes. Funciona igual —mismo buscador, mismos filtros, mismo
+        <b>«Marcar varios»</b>— en:</p>
+      <ul>
+        <li><b>El equipo</b> — se busca por nombre, usuario, correo o teléfono, y
+            se filtra por acceso, papel, departamento y si ha entrado alguna vez.
+            En masa: bloquear, desbloquear, cambiar de departamento y cambiar de
+            papel.</li>
+        <li><b>Las revisiones</b> del mantenimiento preventivo — activar y
+            desactivar varias.</li>
+        <li><b>Las frases del día</b> — activar, desactivar y borrar.</li>
+        <li><b>Los errores</b> y <b>el registro de seguridad</b> — buscar y
+            filtrar; el registro además exporta a Excel <em>sólo lo que estás
+            viendo</em>.</li>
+        <li><b>Importar y exportar personas</b> — buscar y marcar todos.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Una acción en masa nunca alcanza lo que el filtro esconde.</strong>
+          Si marcas cinco, luego filtras y quedan dos a la vista, el rótulo dice
+          «2 marcados · 2 de 5» y sólo se tocan esos dos. Es la diferencia entre
+          una herramienta en la que te puedes fiar y una en la que no.
+        </span>
+      </div>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Y lo que no se puede hacer, se dice por su nombre.</strong> Al
+          bloquear a varios, los que no se tocan vuelven con el motivo:
+          <em>«Marta — eres tú»</em>, <em>«Ana — es el único administrador con
+          acceso»</em>. Nunca te vas a quedar sin poder entrar en tu propio hotel
+          por una acción en masa.
+        </span>
+      </div>
+
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="administrar" data-papeles="admin">
+      <h2><span class="guia-seccion__n">15</span> La pantalla de administración</h2>
+      <p class="guia-seccion__intro">
+        <b>Daniel</b> es administrador de toda la cadena. En
+        <b>Ajustes → Administración</b> tiene todo lo que da forma al sistema.
+        Sólo la ven los administradores: ni Carlos, que es responsable, ni David.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/60-admin.png" alt="El menú de administración completo"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Arriba: hoteles y personas.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/61-admin-abajo.png" alt="La parte de abajo del menú de administración"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Abajo: consultas y el sistema.</figcaption>
+        </figure>
+      </div>
+
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Está en cuatro bloques, y cada entrada dice para qué sirve:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 8px">
+        <li><b>Hoteles</b> — sólo si hay más de uno.</li>
+        <li><b>Personas</b> — equipo, departamentos, contraseñas olvidadas y el
+            registro de seguridad.</li>
+        <li><b>Catálogos</b> — tipos de avería, familias, ubicaciones y los campos
+            propios de cada tipo.</li>
+        <li><b>Consultar</b> — informes, números de serie e instrucciones.</li>
+        <li><b>El sistema</b> — configuración, atajos, mantenimiento programado y
+            copias de seguridad. En Configuración están también la
+            <b>seguridad</b> —intentos antes de bloquear, días de sesión, enlaces
+            de auto-entrada— y la <b>vista smartphone</b>.</li>
+        <li><b>Integridad</b> — comprueba de una vez que todo está en su sitio
+            (ver abajo).</li>
+
+      </ul>
+
+      <h3>Comprobar que todo está en su sitio</h3>
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/105-integridad.png" alt="El panel de integridad, con lo que hay que mirar arriba"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Lo que falla o avisa, arriba y con lo que hay que hacer.</figcaption>
+        </figure>
+      </div>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        <b>Administración → Integridad</b> repasa más de treinta cosas en un
+        momento: que no haya partes sin hotel ni asignados a alguien que ya no
+        existe, que todas las ubicaciones tengan hotel, que las fotos estén en
+        el disco, que quede espacio, que la última copia de seguridad sea
+        reciente, que el servidor no sirva la base de datos a quien escriba su
+        dirección, que nadie con permisos de administrador use la contraseña de
+        este manual…
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Cada línea dice <b>Bien</b>, <b>Aviso</b>, <b>Falla</b> o <b>Sin
+        comprobar</b>, y lo que no está bien explica qué hacer. Lo que falla o
+        avisa sale arriba del todo, en <b>Lo que hay que mirar</b>.
+      </p>
+      <div class="guia-nota">
+        <span>
+          <strong>Sólo mira.</strong> Abrir el panel no cambia nada: si algo está
+          mal, lo decide quien administra. Desde la consola del servidor,
+          <code>php tools/diagnostico.php</code> hace las mismas comprobaciones y
+          además mira el certificado.
+        </span>
+      </div>
+      <h3>Tres ajustes del alta que conviene conocer</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 8px">
+        <li><b>Asignar los partes según lo que falla</b> — cada familia lleva su
+            departamento, así que una sábana rota va a Pisos y un enchufe a
+            Servicios Técnicos sin que nadie lo piense. Un tipo concreto puede
+            mandar sobre su familia: la caja fuerte está en Equipamiento de
+            habitación, que es de Pisos, pero la arregla Servicios Técnicos. El
+            reparto se ajusta en <b>Familias</b>.</li>
+        <li><b>Qué hay que rellenar por fuerza</b> — marca los datos sin los que
+            no se puede dar un parte. Lo comprueba también el servidor, así que
+            no se salta desde un móvil sin cobertura.</li>
+        <li><b>Los accesos rápidos</b> — cuántos tipos salen a un toque al dar un
+            parte, y de dónde salen.</li>
+      </ul>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Lo que desactives en Configuración desaparece de la
+          aplicación.</strong> Lo avisa la propia pantalla. Si apagas «Números de
+          serie», ese botón deja de existir para todo el mundo.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="el-equipo" data-papeles="admin">
+      <h2><span class="guia-seccion__n">16</span> Dar de alta a alguien</h2>
+      <p class="guia-seccion__intro">
+        Entra <b>José Ramos</b> de técnico en Servicios Técnicos. Son dos minutos.
+      </p>
+
+      <ol class="guia-pasos">
+        <li class="guia-paso">
+          <h4>Administración → Equipo → el <b>+</b></h4>
+          <p>Arriba a la derecha.</p>
+        </li>
+        <li class="guia-paso">
+          <h4>Correo y contraseña</h4>
+          <p>
+            El correo del hotel: es con lo que entrará y no se puede repetir. La
+            contraseña, mínimo ocho caracteres — se le dice y él la cambia luego
+            desde su Ajustes.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Nombre y apellido</h4>
+          <p>
+            Salen en los partes y en los avisos. Con el nombre basta si en el
+            hotel no hay dos iguales.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>El papel, de un toque</h4>
+          <p>
+            Cuatro botones: <b>Administrador</b>, <b>Responsable</b>,
+            <b>Técnico</b> y <b>Sólo avisar</b>. Se puede cambiar después.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>El departamento</h4>
+          <p>
+            Es lo que decide <b>qué partes ve</b>. Más importante que el papel: un
+            técnico de Pisos no toca los de Servicios Técnicos.
+          </p>
+        </li>
+      </ol>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/62-equipo.png" alt="La lista del equipo del hotel"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El equipo, con su papel y su departamento.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/63-alta-persona.png" alt="El formulario de alta de una persona"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El alta de José Ramos.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/64-editar-persona.png" alt="La ficha de una persona, para editar sus permisos"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Al tocar a alguien: cambiar su papel o quitarle el acceso.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Cuando alguien se va</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Se usa <b>«Quitar acceso»</b>, no borrar. La cuenta deja de entrar pero
+        <b>su trabajo sigue en los partes</b>: las notas que escribió, las fotos
+        que subió y su nombre en el historial.
+      </p>
+      <div class="guia-nota guia-nota--no">
+        <span>
+          <strong>Borrar a alguien es distinto.</strong> Se lleva por delante su
+          rastro, y entonces el historial de un parte de hace dos años deja de
+          decir quién lo arregló.
+        </span>
+      </div>
+
+      <h3>Si alguien no puede entrar</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0">
+        <li><b>Cuenta bloqueada</b> — se pasó de ocho intentos. <b>Se suelta sola
+            en quince minutos</b>, así que muchas veces basta con decirle que
+            espere; si tiene prisa, se desbloquea desde su ficha. Ojo: a esa
+            persona la aplicación le sigue diciendo «usuario o contraseña
+            incorrectos», no «bloqueada» —si lo dijera, cualquiera podría
+            averiguar quién tiene cuenta probando nombres—, así que puede
+            llamarte convencida de que su contraseña ha dejado de valer.</li>
+        <li><b>No se sabe la contraseña</b> — en «Contraseñas olvidadas» se le
+            genera un código de seis cifras, válido una hora, y se le dice de viva
+            voz.</li>
+      </ul>
+
+      <h2 id="ap-importar"><span class="num">16b</span> Dar de alta a mucha gente de golpe</h2>
+      <p>Para abrir un hotel, o para la temporada: cuarenta altas una por una en el
+        móvil no es trabajo de persona. Se hace con ficheros de texto, desde
+        <b>Ajustes › Administrar el sistema › Importar y exportar personas</b>.</p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/103-personal.png" alt="La pantalla de importar y exportar personas"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Descargar la plantilla, probar en vacío y dar de alta.</figcaption>
+        </figure>
+      </div>
+
+      <h3>La plantilla ya viene rellena</h3>
+      <p>Lo primero es <b>descargar la plantilla</b>. No es una hoja en blanco donde
+        haya que adivinar qué se escribe: trae <b>los valores de este hotel ya
+        puestos</b> —sus departamentos, sus permisos, sus hoteles— y se elige
+        marcando con <code>[x]</code> y dejando <code>[ ]</code> el resto:</p>
+      <pre class="codigo">Departamento:
+# Marca uno: el suyo, donde trabaja.
+  [ ] Cocina / A&amp;B
+  [x] Servicios Técnicos
+  [ ] Recepción</pre>
+      <p>Las líneas que empiezan por <code>#</code> son explicaciones y no se leen.
+        Lo que se deje en blanco se queda sin poner. Las etiquetas no se tocan.</p>
+      <p>Lleva todo lo de una ficha: hotel, nombre de usuario, correo, contraseña
+        inicial, nombre, primer y <b>segundo apellido</b>, teléfono, papel,
+        departamento y departamentos adicionales, los cuatro permisos sueltos
+        —modo sin cobertura, asignar a un compañero, a un responsable y a otro
+        departamento—, el mensaje de bienvenida, el aviso para el próximo inicio
+        y si se le enseña la frase del día.</p>
+
+      <h3>Cómo se usa</h3>
+      <ol class="guia-pasos">
+        <li class="guia-paso">
+          <h4>Una copia por persona</h4>
+          <p>Se rellena la plantilla y se guarda una copia por persona en
+            <code>bak_config/upload/user/</code>, con cualquier nombre que acabe
+            en <code>.txt</code>: <code>marta.txt</code>, <code>jose.txt</code>.</p>
+        </li>
+        <li class="guia-paso">
+          <h4>Primero en vacío</h4>
+          <p>Hay un botón para <b>probar sin dar de alta a nadie</b>: dice qué
+            haría con cada fichero y qué líneas no entiende. Con cuarenta altas,
+            esto se hace siempre antes.</p>
+        </li>
+        <li class="guia-paso">
+          <h4>Dar de alta</h4>
+          <p>Recorre los ficheros y crea —o actualiza, si ese usuario ya existe—
+            cada persona, con su departamento, sus permisos y su mensaje de
+            bienvenida. Al final dice una línea por fichero: creada, actualizada o
+            por qué no.</p>
+        </li>
+      </ol>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>El fichero se borra al darla de alta.</strong> Lleva dentro la
+          contraseña inicial de una persona, y un <code>.txt</code> con
+          contraseñas olvidado en una carpeta del servidor es un problema que
+          espera. Si el alta falla, el fichero se queda para poder corregirlo.
+        </span>
+      </div>
+
+      <h3>Exportar</h3>
+      <p>En la otra dirección, se pueden sacar las fichas a
+        <code>bak_config/download/user/</code>, una por persona, en el mismo
+        formato que la plantilla. Se marcan en la lista —hay un
+        <b>«marcar todos»</b>— y se bajan de una vez.</p>
+      <p><b>La contraseña no se exporta nunca:</b> en su sitio aparece
+        <code>****</code>. Y eso es justo lo que hace que una ficha exportada se
+        pueda volver a importar sin romper nada: al encontrar <code>****</code> no
+        se toca la contraseña que esa persona tenga puesta.</p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Para qué sirve de verdad exportar.</strong> Para llevarse la
+          plantilla de un hotel que ya funciona y usarla de molde en el que abre;
+          y para revisar de un vistazo, fuera de la aplicación, quién tiene qué
+          permisos.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="los-departamentos" data-papeles="admin">
+      <h2><span class="guia-seccion__n">17</span> Los departamentos</h2>
+      <p class="guia-seccion__intro">
+        Son <b>comunes a toda la cadena</b>, y eso es a propósito: así un informe
+        de varios hoteles cuadra. Lo que elige cada hotel es cuáles usa y cómo los
+        llama en casa.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/65-departamentos.png" alt="La pantalla de departamentos, con los que usa este hotel"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Cada departamento dice cuánta gente y cuántos partes tiene.</figcaption>
+        </figure>
+      </div>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Crear y renombrar</b> — sólo un administrador. El
+            nombre es el que sale en los informes de todos los hoteles.</li>
+        <li><b>El alias</b> — cada hotel puede llamarlo distinto en su casa:
+            «Servicios Técnicos» en uno y «Mantenimiento» en otro. Los informes
+            siguen cuadrando porque por dentro es el mismo.</li>
+        <li><b>Quitar uno del hotel</b> — si tiene partes o gente, avisa antes.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Un departamento con historia no se borra: se desactiva.</strong>
+          Desaparece de las listas para elegir, pero los partes viejos siguen
+          diciendo de quién eran.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="las-ubicaciones" data-papeles="admin">
+      <h2><span class="guia-seccion__n">18</span> Montar las ubicaciones</h2>
+      <p class="guia-seccion__intro">
+        Es lo que más trabajo da al empezar, y hay una herramienta para no morir
+        en el intento: <b>crear habitaciones por rango</b>.
+      </p>
+
+      <h3>Los cuatro niveles</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 12px">
+        <b>Planta → Zona → Lugar → SubLugar.</b> «Planta 04 › Habitaciones › 412 ›
+        Baño». Se pueden montar a mano uno a uno, pero para las habitaciones no
+        hace falta.
+      </p>
+
+      <h3>Una planta entera de una vez</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        En <b>Ubicaciones → Crear habitaciones por rango</b>. Ejemplo real: la
+        planta 5, de la 501 a la 520, <b>saltando la 513</b>.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/66-ubicaciones.png" alt="La pantalla de ubicaciones con sus plantas"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Las plantas, con cuántas ubicaciones cuelgan de cada una.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/67-rango-relleno.png" alt="El formulario de crear habitaciones por rango, relleno"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>De la 501 a la 520, sin la 513.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/68-rango-hecho.png" alt="Las ubicaciones tras crear la planta"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Diecinueve habitaciones creadas de un tirón.</figcaption>
+        </figure>
+      </div>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Desde / Hasta</b> — 501 y 520.</li>
+        <li><b>Saltar</b> — «513», separadas por comas. En muchos hoteles no hay
+            habitación 13, y ponerla es un problema el día que alguien la busca.</li>
+        <li><b>Prefijo y sufijo</b> — para que salgan como «Hab. 501» si así se
+            llaman en casa.</li>
+        <li><b>Sublugares</b> — crea de golpe el baño, el dormitorio y la terraza
+            de cada una.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Si una habitación ya existe, no se duplica.</strong> Se puede
+          lanzar el mismo rango dos veces sin miedo: reutiliza las que hay y crea
+          sólo las que faltan.
+        </span>
+      </div>
+
+      <h3>Varios hoteles</h3>
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/69-hoteles.png" alt="La pantalla de gestión de hoteles"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Arriba dice siempre sobre qué hotel estás trabajando.</figcaption>
+        </figure>
+      </div>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Al crear el segundo hotel se le pueden <b>copiar las ubicaciones</b> del
+        primero, que en cadenas con edificios parecidos ahorra días de trabajo.
+      </p>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Los hoteles no se mezclan.</strong> Partes, personas, ubicaciones
+          y aparatos son de cada uno. La pantalla recuerda arriba sobre cuál estás,
+          porque equivocarse de hotel es fácil y molesto.
+        </span>
+      </div>
+
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="preventivo" data-papeles="responsable admin">
+      <h2><span class="guia-seccion__n">19</span> Mantenimiento preventivo</h2>
+      <p class="guia-seccion__intro">
+        Lo que hay que hacer aunque nadie avise: extintores, filtros, legionela,
+        alumbrado de emergencia. Se programa una vez y el sistema <b>crea el parte
+        cuando toca</b>.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/70-mantenimiento.png" alt="La pantalla de mantenimiento programado"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Fuera de plazo arriba, en rojo. Luego lo que toca pronto.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/71-mantenimiento-nuevo.png" alt="El formulario de una revisión nueva"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Una revisión de extintores, cada seis meses.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Programar una revisión</h3>
+      <ol class="guia-pasos">
+        <li class="guia-paso">
+          <h4>Ponle nombre y di qué comprobar</h4>
+          <p>
+            La descripción es la que leerá el técnico dentro de seis meses:
+            <em>«Comprobar precinto, presión y fecha de retimbrado. Anotar los que
+            haya que retirar.»</em>
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Cada cuánto</h4>
+          <p>Un número y una unidad: días, semanas, meses o años.</p>
+        </li>
+        <li class="guia-paso">
+          <h4>Con cuántos días de aviso</h4>
+          <p>
+            El parte se crea antes de la fecha, para que dé tiempo a organizarse.
+            Siete días va bien para casi todo.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Hasta cuándo se repite</h4>
+          <p>
+            Esto es opcional, y es lo que evita que una revisión siga saliendo
+            cuando ya no toca. Dos formas de ponerle fin:
+          </p>
+          <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:6px 0 0">
+            <li><b>Un número de veces</b> — «cuatro revisiones y se acabó».
+                Sirve para el año de garantía de un aparato, o para un contrato
+                que cubre un número cerrado de visitas.</li>
+            <li><b>Una fecha final</b> — «hasta el 31 de diciembre». Sirve para
+                lo de temporada: la analítica de la piscina no hace falta en
+                enero.</li>
+          </ul>
+          <p>
+            Si no pones ninguna de las dos, se repite indefinidamente, que es lo
+            normal para un extintor o una caldera.
+          </p>
+        </li>
+        <li class="guia-paso">
+          <h4>Área, sitio y quién</h4>
+          <p>
+            Todo opcional. Si no pones a nadie, el parte cae en la cola del
+            departamento como cualquier otro.
+          </p>
+        </li>
+      </ol>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Cuando se agota, se apaga sola y dice por qué.</strong> Al
+          tocarle la siguiente vez, la revisión se desactiva y en la lista queda
+          escrito el motivo: <em>«terminada: ya se hizo las 4 veces previstas»</em>
+          o <em>«terminada: pasó su fecha final (31/12/2026)»</em>. Así se
+          distingue de una que alguien apagó a mano. No desaparece: sigue ahí
+          con su historial, y se vuelve a poner en marcha cambiándole el tope.
+        </span>
+      </div>
+
+      <h3>«Comprobar ahora»</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Normalmente no hace falta tocarlo: hay una tarea que lo mira sola cada
+        noche. El botón sirve para adelantarse.
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Y no crea nada sin enseñarlo antes: <b>primero dice qué partes va a crear
+        y pide confirmación.</b>
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/72-mantenimiento-confirmar.png" alt="La confirmación antes de crear los partes de mantenimiento"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>«Crear 1 parte · Revisión de extintores». Con nombres, no
+            con números.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/73-mantenimiento-hecho.png" alt="La pantalla tras generar los partes"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Hecho: la siguiente fecha ya está puesta.</figcaption>
+        </figure>
+      </div>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Al cerrar el parte, la fecha siguiente se pone sola.</strong>
+          Una revisión semestral cerrada hoy vuelve a aparecer dentro de seis
+          meses. No hay que acordarse de nada.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="instrucciones" data-papeles="tecnico responsable admin">
+      <h2><span class="guia-seccion__n">20</span> Las instrucciones</h2>
+      <p class="guia-seccion__intro">
+        Cómo se hacen las cosas en <em>este</em> hotel. Lo que sabe el que lleva
+        quince años, escrito para el que entró el lunes.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/74-instrucciones.png" alt="La lista de instrucciones por familias"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Ordenadas por familia, con buscador.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/75-instruccion-abierta.png" alt="Una instrucción abierta, con su aviso de seguridad primero"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El aviso va primero, antes que los pasos.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/76-instruccion-nueva.png" alt="El formulario para escribir una instrucción"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Escribir una: título, resumen, pasos, aviso y etiquetas.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Dónde aparecen solas</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Esto es lo que las hace útiles: <b>salen en la ficha del parte</b>, bajo
+        «Cómo se hace esto», sin que nadie vaya a buscarlas. Llegan por la familia
+        del tipo de avería: un parte de aire acondicionado ofrece las de
+        Climatización.
+      </p>
+
+      <h3>Dos maneras de escribirla</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Arriba de la lista hay dos botones, y la diferencia es el tipo de cosa que
+        vas a escribir:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Nota rápida</b> — cuatro pasos escritos a mano. Para esto no hay
+            editor que gane a un teclado: se numeran las líneas y ya está. Es el
+            editor de siempre, y no se va a ninguna parte.</li>
+        <li><b>Manual con fotos, pasos y vídeo</b> — para lo que de verdad hay que
+            enseñar: dónde está el tornillo, de qué color es el cable, cómo suena
+            la bomba cuando va mal.</li>
+      </ul>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 14px">
+        Se puede cambiar de uno a otro a mitad de escritura. Al pasar de sencillo
+        a manual, <b>las líneas numeradas se convierten en pasos</b> y no se pierde
+        nada. Al revés sí se pierde —una foto no cabe en un cuadro de texto—, así
+        que <b>avisa antes</b> de hacerlo y deja volverse atrás.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/104-manual-editor.png" alt="El editor de manuales abierto, con el botón de añadir bloques"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El editor del manual: el <b>+</b> añade paso, foto, aviso, tabla o vídeo.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Qué se puede poner en un manual</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Pasos numerados</b>, que se renumeran solos al mover uno.</li>
+        <li><b>Fotos</b>, desde la galería o la cámara, con su pie de foto.</li>
+        <li><b>Un recuadro de aviso</b>, para lo que no se debe hacer.</li>
+        <li><b>Tablas</b>: valores de referencia, presiones, pares de apriete.</li>
+        <li><b>Títulos de apartado</b>, para un manual largo.</li>
+        <li><b>Vídeo</b>, de dos formas (abajo).</li>
+      </ul>
+
+      <h3>El vídeo</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 12px">
+        <li><b>Subido</b> — queda en el hotel y <b>se ve sin cobertura</b>, que es
+            donde hace falta. A cambio ocupa disco y entra en las copias de
+            seguridad, así que hay un tope de tamaño que un administrador puede
+            bajar. Para un clip de medio minuto enseñando una maniobra es lo
+            suyo.</li>
+        <li><b>«Vídeo de fuera»</b> — un enlace de YouTube o Vimeo. No ocupa nada,
+            pero <b>hace falta internet</b> para verlo: en un sótano no sirve.</li>
+      </ul>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 14px">
+        Consejo práctico: grábalo corto y a 720p. Un minuto bien enfocado enseña
+        más que cinco de paseo, y pesa cinco veces menos.
+      </p>
+
+      <h3>Lo que se rellena en las dos</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 12px">
+        <li><b>Título</b> — «Purgar el circuito de climatización».</li>
+        <li><b>Resumen</b> — cuándo hace falta y por qué. Es lo que se lee en la
+            ficha del parte antes de abrirla.</li>
+        <li><b>Los pasos</b> — numerados, cortos, en el orden que se hacen.</li>
+        <li><b>El aviso</b> — opcional, y es lo que evita accidentes:
+            <em>«No purgues con la bomba en marcha»</em>, <em>«Nunca mezcles cloro
+            y reductor de pH: la reacción libera gas tóxico»</em>. Sale destacado,
+            antes que los pasos.</li>
+        <li><b>Etiquetas</b> — para encontrarla buscando: «purgar, fancoil, no
+            enfría».</li>
+      </ul>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Se leen sin cobertura.</strong> Es donde de verdad hacen falta:
+          en un cuarto de máquinas, delante del aparato, sin una raya de
+          cobertura.
+        </span>
+      </div>
+
+      <div class="guia-nota">
+        <span>
+          <strong>El botón «Me ha servido»</strong> cuenta los votos. Con el
+          tiempo dice cuáles valen la pena y cuáles hay que reescribir.
+        </span>
+      </div>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Lo escrito no se pierde al tocar «atrás».</strong> Si hay un
+          manual a medias, salir pregunta antes. Un manual lleva media hora de
+          trabajo y se perdía con un toque mal dado.
+        </span>
+      </div>
+
+      <div class="guia-nota">
+        <span>
+          <strong>El editor sólo se descarga al escribir.</strong> Son unos 400 KB,
+          y quien <em>lee</em> manuales no tiene por qué bajárselos: se traen en el
+          momento de pulsar «Manual con fotos, pasos y vídeo». Abrir la lista y
+          leer un manual no pide ni un fichero del editor.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="aparatos" data-papeles="tecnico responsable admin">
+      <h2><span class="guia-seccion__n">21</span> Aparatos con número de serie</h2>
+      <p class="guia-seccion__intro">
+        Para el equipamiento que importa seguir: televisores, aires, cerraduras,
+        ascensores. Saber dónde está cada uno y qué le ha pasado.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/77-aparatos.png" alt="La pantalla de aparatos, vacía a la espera de un número de serie"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Empieza vacía a propósito.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/78-aparato-buscado.png" alt="El resultado de buscar un número de serie"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Vale un trozo del número: «SNAA-2» ya lo encuentra.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/79-aparato-ficha.png" alt="La ficha de un aparato con su historia"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Tipo, modelo, dónde está, desde cuándo y su historia.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Por qué empieza vacía</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Cuando buscas un aparato estás delante de él, con la etiqueta a la vista.
+        Una lista de cientos de televisores no ayuda; escribir el número sí. Y vale
+        con un trozo, que es lo que se lee cuando la pegatina está medio borrada.
+      </p>
+
+      <h3>Qué cuenta su ficha</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 12px">
+        <li><b>Estado</b> — en servicio, en reparación o de baja.</li>
+        <li><b>Tipo y modelo</b> — «Aire acondicionado · Daikin FTXM35R».</li>
+        <li><b>Dónde está</b> — la ubicación completa, y desde cuándo.</li>
+        <li><b>Su historia</b> — alta, traslados, averías con su parte, y la baja
+            con su motivo.</li>
+        <li><b>Sus partes</b> — se abren desde ahí mismo.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Cuando un aparato se mueve, se anota.</strong> Un televisor que
+          pasa de la 1008 a la 101 deja constancia con la fecha y el motivo. Al año
+          siguiente, esa historia es la que dice si un modelo da más guerra que
+          otro.
+        </span>
+      </div>
+
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="informes" data-papeles="responsable admin">
+      <h2><span class="guia-seccion__n">22</span> Los informes</h2>
+      <p class="guia-seccion__intro">
+        Dos preguntas y ya hay informe: <b>qué quiero medir</b> y <b>agrupado por
+        qué</b>. Lo demás son condiciones para acotar.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/80-informes.png" alt="La pantalla de informes"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Dos preguntas arriba, condiciones debajo.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/81-informe-medida.png" alt="Las cinco medidas disponibles"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Cinco cosas que medir.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/84-informe-resultado.png" alt="El resultado del informe, con sus barras"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Minutos dedicados por familia.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Qué se puede medir</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Número de partes</b> — cuántas averías.</li>
+        <li><b>Minutos dedicados</b> — cuánto tiempo se ha ido. Sale de las notas
+            con minutos.</li>
+        <li><b>Coste total</b> — si se apuntan costes.</li>
+        <li><b>Horas medias hasta el cierre</b> — lo que se tarda de verdad.</li>
+        <li><b>Porcentaje resuelto en plazo</b> — el que enseñar en una reunión.</li>
+      </ul>
+
+      <h3>Agrupado por qué</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Veinticuatro formas, y las interesantes suelen ser tres:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 12px">
+        <li><b>Por lugar / habitación</b> — dice qué habitación da guerra.</li>
+        <li><b>Por familia o tipo de avería</b> — qué se rompe más.</li>
+        <li><b>Por mes</b> — si vamos a mejor o a peor.</li>
+      </ul>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 12px">
+        Y también por los campos propios de cada tipo: se puede agrupar por
+        «Filtros revisados» y ver cuántas averías de aire eran, en realidad, un
+        filtro sucio.
+      </p>
+
+      <h3>Sacarlo a Excel</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        El botón <b>«Exportar»</b> baja un CSV que abre en Excel <b>con los acentos
+        bien</b> y las columnas separadas. Es lo que se manda a dirección.
+      </p>
+      <p><b>Guardar un informe.</b> Cuando uno queda como interesa, se guarda con
+        nombre, y se elige quién lo verá: <b>sólo yo</b>, <b>mi departamento</b> o
+        <b>todo el equipo</b>. Lo último lo deciden los responsables: una lista
+        que puede llenar cualquiera deja de servir en dos semanas.</p>
+      <p>Se puede filtrar por cualquier dato del parte —estado, tipo, sitio,
+        quién lo lleva, fechas, rangos de fecha, «últimos treinta días»— y
+        también por los datos propios de cada avería.</p>
+
+
+      <div class="guia-nota">
+        <span>
+          <strong>Los informes se guardan y se comparten.</strong> El tuyo sólo lo
+          ves tú hasta que le das a compartir; entonces lo tiene todo el equipo.
+          Y nadie puede borrar el informe de otro.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="copias" data-papeles="admin">
+      
+      <h2 id="ap-hist"><span class="num">22b</span> Si algo se repite</h2>
+      <p>Al final de cada parte hay un bloque: <b>«Ya ha pasado aquí»</b>.
+        Enseña qué más ha ocurrido con ese mismo tipo de avería <b>en ese mismo
+        sitio</b>, y aparte, en el resto del hotel.</p>
+      <p>Sirve para lo de siempre: la 214 lleva tres partes de aire acondicionado
+        en dos meses, así que el problema no es el aire, es otra cosa. Abajo,
+        <b>«Ver el historial completo»</b> abre Informes con ese tipo de avería
+        ya filtrado y agrupado por sitio.</p>
+      <p class="nota">Sólo salen los partes que esa persona puede ver: no es una
+        rendija para leer los de otro departamento. Se apaga desde
+        Configuración → Comportamiento.</p>
+
+      <h2 id="ap-campos"><span class="num">22c</span> Datos propios de cada avería</h2>
+      <p>Hay averías que piden datos que al resto no le sirven. En un aire
+        acondicionado importa la temperatura de la sala, si el mando responde y
+        cómo están los filtros; en una puerta que no cierra, nada de eso
+        significa nada.</p>
+      <p>Por eso, al elegir <b>Aire acondicionado</b> o <b>Fan coil</b>, el parte
+        pide además esos datos, y sólo entonces. Vienen de fábrica cinco:
+        temperatura de la sala, temperatura pedida, qué hace, estado de los
+        filtros y si se ha mirado el gas. Las calderas y los grifos preguntan la
+        presión del agua.</p>
+      <p>Después se pueden cruzar en Informes: «media de temperatura por planta»
+        o «cuántos partes con los filtros muy sucios». Los campos los crea y
+        los quita el superadministrador, en Administración → Campos por tipo de
+        avería; son comunes a todos los hoteles de la cadena.</p>
+      <p class="nota">Si se retira un campo, los datos ya escritos <b>no se
+        pierden</b> y los informes que lo usaban siguen funcionando: aparece
+        marcado como «retirado».</p>
+
+
+      <h2 id="ap-sap"><span class="num">22d</span> Saber si la habitación está ocupada</h2>
+      <p>Si el hotel tiene conectado su sistema de recepción, al elegir la
+        habitación en un parte aparece <b>qué hay dentro ahora mismo</b>: si está
+        ocupada, en qué estado está y —según lo que cada uno pueda ver— quién
+        duerme allí, de qué país es y hasta cuándo se queda.</p>
+      <p>Eso último importa más de lo que parece: saber que el cliente de la 214
+        es alemán te dice en qué idioma llamar a la puerta, y saber que se va
+        mañana te dice si conviene entrar hoy o esperar.</p>
+      <p>Cuando la habitación está ocupada sale además un aviso: <b>avisa a
+        recepción antes de subir</b>.</p>
+      <p class="nota">No todo el mundo ve lo mismo. Cada dato —la ocupación, el
+        estado, el nombre, el país, las fechas— se abre a quien decida la
+        dirección, y el resto no lo recibe siquiera. Si el sistema de recepción
+        está caído, el bloque no aparece y el parte se da igual: nunca se deja
+        de dar un parte porque falle otro programa.</p>
+      <p>Se consulta también sin dar un parte, desde <b>Ajustes → SAP</b>: una
+        habitación suelta o un rango entero.</p>
+
+<h2><span class="guia-seccion__n">23</span> Copias de seguridad</h2>
+      <p class="guia-seccion__intro">
+        Un botón. Baja un fichero con todo dentro: partes, historial, personas,
+        ubicaciones, catálogos y ajustes.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/85-copias.png" alt="La pantalla de copias de seguridad"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Dos botones: con fotos o sin ellas.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/86-copia-hecha.png" alt="La copia recién creada, con su tamaño y su contenido"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>29 tablas y 2.550 registros en 42 KB.</figcaption>
+        </figure>
+      </div>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Crear copia</b> — los datos, comprimidos. Pesa poco.</li>
+        <li><b>Con fotos</b> — además un zip con las imágenes. Pesa mucho más.</li>
+      </ul>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Una copia que se queda en el servidor no es una copia.</strong>
+          Descárgala y guárdala en otro sitio: si el disco del servidor se estropea,
+          se lleva la base y las copias juntas.
+        </span>
+      </div>
+
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Antes de restaurar una copia conviene <b>cerrar el acceso</b> —en
+        Configuración— para que nadie escriba a la vez. Quien esté sin cobertura
+        puede seguir trabajando: lo que tenga pendiente sube igual, y baja cuando
+        se reabre.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>La copia sirve también para cambiar de motor.</strong> Guarda los
+          datos, no el SQL: se puede pasar de SQLite a MySQL haciendo copia,
+          instalando vacío y restaurando.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="borrar" data-papeles="admin">
+      <h2><span class="guia-seccion__n">24</span> Ocultar, eliminar y la papelera</h2>
+      <p class="guia-seccion__intro">
+        Son <b>dos cosas distintas</b> y conviene no confundirlas, porque sólo una
+        tiene vuelta.
+      </p>
+
+      <h3>Ocultar de las listas</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        El parte deja de verse en la aplicación. Sigue en la base de datos con todo
+        su historial y se recupera desde <b>Administración → Gestión de partes</b>,
+        marcando «ver también los ocultos»</p>
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          Úsalo para lo que estorba y no interesa a nadie: un duplicado, una
+          prueba. Si crees que puede hacer falta luego, mejor cámbialo a
+          «Cancelada» y déjalo donde está.
+        </span>
+      </div>
+
+      <h3>Eliminar definitivamente</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        El parte <b>sale de la base viva</b> —deja de contar en listados, informes
+        y recuentos— y <b>entra en la papelera</b>, que es una base de datos aparte.
+        Sólo lo puede hacer un administrador.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/87-papelera.png" alt="La papelera con una entrada"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>La papelera avisa de dónde estás: «esto no es la
+            aplicación».</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/88-papelera-ficha.png" alt="Una entrada de la papelera, con quién la borró y el botón de devolver"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Quién lo borró, cuándo, y el botón «Devolverlo».</figcaption>
+        </figure>
+      </div>
+
+      <h3>La papelera</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li>Guarda <b>quién lo borró y cuándo</b>, con todos los datos que tenía.</li>
+        <li><b>«Devolverlo»</b> lo trae de vuelta con su número, su historial, sus
+            fotos y sus campos.</li>
+        <li><b>«Tirarlo»</b> lo borra del todo, fotos incluidas. Eso ya no vuelve.</li>
+        <li>Se vacía sola pasados los días que se configuren — 180 por defecto.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Sólo los administradores ven la papelera.</strong>
+          Contiene cosas de todos los hoteles, así que mirarla es un permiso
+          aparte de administrar el propio.
+        </span>
+      </div>
+
+      <h2 id="ap-restablecer"><span class="num">24b</span> Dejar un hotel a cero</h2>
+      <p>Es para dos situaciones concretas: <b>terminar las pruebas</b> y empezar
+        de verdad, o <b>abrir un hotel nuevo</b> partiendo de la copia de otro.
+        Está en <b>Ajustes › Hoteles › Restablecer</b>, y sólo lo ve un
+        administrador.</p>
+
+      <p>No es un botón único: <b>se marca qué se borra</b>, cada cosa por
+        separado, porque vaciar las conversaciones no tiene nada que ver con tirar
+        la auditoría.</p>
+      <ul>
+        <li><b>Los partes</b>, con sus notas, fotos e historial.</li>
+        <li><b>Las personas</b> — menos tú, que no te puedes borrar a ti mismo.</li>
+        <li><b>Los avisos</b> y <b>las conversaciones</b> de todo el mundo.</li>
+        <li><b>Las revisiones</b> del mantenimiento preventivo.</li>
+        <li><b>El registro de errores.</b></li>
+        <li><b>El registro de seguridad</b> — piénsalo: es la auditoría, y eso no
+            se reconstruye.</li>
+        <li><b>Lo que cada uno se ha configurado</b>: su barra de abajo, sus
+            avisos, sus atajos y sus informes guardados. No se tocan sus permisos
+            ni su departamento, que es cómo trabaja y no una preferencia.</li>
+        <li><b>Vaciar la papelera.</b></li>
+      </ul>
+
+      <div class="guia-nota guia-nota--no">
+        <span>
+          <strong>Hay que escribir el nombre del hotel para confirmar.</strong>
+          Tal cual, con sus tildes. Es la última puerta antes de algo que se hace
+          una vez en la vida de un hotel, y que con un dedo torpe se haría en el
+          hotel equivocado.
+        </span>
+      </div>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Todo pasa por la papelera antes de borrarse</strong> —menos
+          «vaciar la papelera», claro, que es lo único de ahí sin vuelta atrás—.
+          Y si algo no se puede vaciar, se dice cuál y por qué en vez de dejar el
+          trabajo a medias en silencio.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="registro" data-papeles="admin">
+      <h2><span class="guia-seccion__n">25</span> El registro de seguridad</h2>
+      <p class="guia-seccion__intro">
+        Quién entra, desde dónde y qué cambia. Se mira poco, pero el día que hace
+        falta no hay sustituto.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/89-registro.png" alt="El registro de seguridad con las entradas del día"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Entradas del día e intentos fallidos, arriba del todo.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Qué queda anotado</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Entradas y fallos</b> — con la dirección desde la que se intentó.</li>
+        <li><b>Cambios de contraseña, correo y papel</b> — de quién y por quién.</li>
+        <li><b>Ajustes del sistema</b> — con el valor antes y después.</li>
+        <li><b>Borrados definitivos</b> y <b>copias de seguridad</b>.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Guarda las dos personas por separado:</strong> a quién le
+          cambiaron el rol, y quién se lo cambió. Así se puede preguntar «¿qué tocó
+          fulano?» y obtener respuesta, en vez de rebuscar nombres dentro del texto.
+        </span>
+      </div>
+
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Se conserva 90 días por defecto, y se puede filtrar por tipo o quedarse
+        sólo con los fallos. Un montón de intentos fallidos seguidos, de madrugada
+        y desde una dirección rara, es exactamente lo que hay que poder ver.
+      </p>
+
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="sin-cobertura" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">26</span> Trabajar sin cobertura</h2>
+      <p class="guia-seccion__intro">
+        En un sótano, una cámara frigorífica o el hueco del ascensor no hay
+        cobertura. La aplicación está hecha contando con eso: <b>se sigue
+        trabajando igual</b>.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/90-sin-cobertura.png" alt="La aplicación sin cobertura, con su aviso arriba"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>«Sin conexión · puedes seguir trabajando».</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/92-pendiente-de-subir.png" alt="Un parte guardado en el móvil, pendiente de subir"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>El parte guardado, esperando a que haya red.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/93-ya-subido.png" alt="El mismo parte ya subido al servidor"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Al volver la cobertura, sube solo.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Qué se puede hacer sin red</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Dar partes</b> — con foto y todo.</li>
+        <li><b>Escribir notas y minutos</b>.</li>
+        <li><b>Cambiar estados</b> y cerrar partes.</li>
+        <li><b>Buscar</b> — la búsqueda se hace en el propio móvil.</li>
+        <li><b>Leer las instrucciones</b> — que es justo donde hacen falta.</li>
+      </ul>
+
+      <h3>Cómo saber si algo está pendiente</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        La tira de arriba lo dice, y cada parte pendiente lleva una nube en su
+        tarjeta. En cuanto hay una raya de cobertura, sube solo: no hay que
+        acordarse de nada ni pulsar ningún botón.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>El móvil no se descarga el hotel entero.</strong> Baja los partes
+          de los últimos 90 días, que son unos cuatro mil. Por eso un teléfono
+          viejo sigue yendo bien al tercer año.
+        </span>
+      </div>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Si cierras la aplicación con cosas pendientes, no se pierden.</strong>
+          Se quedan guardadas en el móvil hasta la próxima vez que haya red.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="conflictos" data-papeles="tecnico responsable admin">
+      <h2><span class="guia-seccion__n">27</span> Cuando dos cambian lo mismo</h2>
+      <p class="guia-seccion__intro">
+        Pasa poco, pero pasa: David cambia el estado de un parte sin cobertura y,
+        mientras tanto, Carlos lo cierra desde su móvil. Al volver la red hay dos
+        versiones del mismo dato.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/94-conflicto-aviso.png" alt="El aviso de un cambio pisado por otra persona"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>«1 cambio pisado por otra persona · Revisar».</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/95-conflicto-pantalla.png" alt="La pantalla de conflictos, con las dos versiones"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Las dos versiones, una al lado de la otra.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Qué hace la aplicación</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Lo que <b>no</b> hace es decidir por su cuenta. Tu cambio se guarda sin
+        aplicar y sale un aviso arriba. En la pantalla de conflictos se ve todo:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 12px">
+        <li><b>En el servidor</b> — «Resuelta».</li>
+        <li><b>Tu cambio</b> — «En Curso».</li>
+        <li><b>Quién y cuándo</b> — «Lo cambió Carlos Duarte el 8 de septiembre a
+            las 6:44».</li>
+        <li>Y tu nota, para que recuerdes qué ibas a hacer.</li>
+      </ul>
+
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 12px">
+        Dos salidas, y las dos son válidas: <b>«Quedarme con el suyo»</b> o
+        <b>«Aplicar el mío»</b>. También se puede abrir el parte completo antes de
+        decidir.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Las notas no chocan nunca.</strong> Se suman las dos, porque dos
+          personas contando cosas distintas del mismo parte no se contradicen. El
+          conflicto sólo salta cuando los dos cambian <em>el mismo dato</em>: el
+          estado, la prioridad, a quién está asignado.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="avisos" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">28</span> Los avisos</h2>
+      <p class="guia-seccion__intro">
+        La campana de arriba y, si se activan, los avisos que llegan <b>con la
+        aplicación cerrada</b>.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/96-avisos-ajustes.png" alt="Los ajustes de avisos"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Qué avisa, cómo y en qué aparato.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/30-avisos.png" alt="La lista de avisos recibidos"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>La lista de lo que ha ido pasando.</figcaption>
+        </figure>
+      </div>
+
+      <h3>De qué avisa</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li>Un parte nuevo en tu departamento.</li>
+        <li>Uno que te asignan a ti.</li>
+        <li>Una nota en algo tuyo.</li>
+        <li>Algo que se pasa de plazo.</li>
+        <li>Un parte urgente, que además suena distinto.</li>
+      </ul>
+
+      <h3>Con la aplicación cerrada</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Hay que activarlo una vez por móvil, y el teléfono pedirá permiso. Si
+        alguna vez se dijo que no, hay que volver a permitirlo <b>en los ajustes
+        del navegador</b> — la aplicación no puede hacerlo sola, y lo avisa.
+      </p>
+
+      <h3>Sonido y vibración</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 8px">
+        Se ajustan por aparato: el sonido se puede apagar sin perder la vibración,
+        que es lo que sirve con el móvil en el bolsillo o en una zona ruidosa.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Un aviso que no sale no pierde el trabajo.</strong> El aviso se
+          guarda igual y aparece en la campana al abrir la aplicación. Si el móvil
+          estaba apagado o sin cobertura, no se pierde nada.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="mensajes" data-papeles="recepcion tecnico responsable admin">
+      <h2><span class="guia-seccion__n">29</span> Hablar por la aplicación</h2>
+      <p class="guia-seccion__intro">
+        Una sola pantalla con todo lo que hay que leer: las conversaciones de los
+        partes y los avisos, lo no leído arriba. Es la pantalla
+        <b>«Mensajes»</b> de la barra de abajo.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/100-mensajes.png" alt="La pantalla de mensajes con las conversaciones sin leer arriba"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Lo que tienes sin leer, arriba del todo.</figcaption>
+        </figure>
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/101-mensajes-avisos.png" alt="La pestaña de avisos dentro de la pantalla de mensajes"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>La otra pestaña: los avisos, en la misma pantalla.</figcaption>
+        </figure>
+      </div>
+
+      <h3>Qué es y qué no es</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Cada conversación cuelga de <b>un parte</b>. No es un chat libre para
+        hablar de cualquier cosa: se habla <em>de la avería del 801</em>, y por
+        eso lo que se dice queda donde hace falta dentro de seis meses, junto al
+        parte y no perdido en un hilo.
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Lo que cambia es que ya <b>no hay que entrar en cada parte</b> para ver si
+        alguien ha escrito. Antes había que acordarse de mirar; con cincuenta
+        personas hablando, lo urgente se quedaba sin leer porque estaba a tres
+        toques de distancia.
+      </p>
+
+      <h3>Las dos pestañas</h3>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 12px">
+        <li><b>Conversaciones</b> — un parte por línea, con lo último que se dijo
+            y quién lo dijo. Las que tienen algo sin leer van primero.</li>
+        <li><b>Avisos</b> — lo que antes estaba en la campana: partes nuevos,
+            asignaciones, plazos. Al tocar uno se abre su parte.</li>
+      </ul>
+
+      <h3>El número de la barra de abajo</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Suma <b>las conversaciones con algo sin leer y los avisos sin leer</b>:
+        cuántas cosas tienes que atender, sin que importe de qué cajón vienen. Una
+        conversación con seis mensajes nuevos cuenta <b>una</b>, no seis — cuántos
+        hay dentro se ve en su propia chapa, al lado de cada línea. Cuando se
+        queda en cero, está todo leído.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>No se repinta mientras escribes.</strong> La pantalla se
+          actualiza sola cada veinte segundos, pero nunca mientras estás
+          escribiendo en el buscador ni con un panel abierto. Perder lo que
+          llevabas escrito por un refresco automático es el fallo que más cansa.
+        </span>
+      </div>
+
+      <h3 id="ap-importante">Marcar un mensaje como importante</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Un mensaje se puede marcar como importante al escribirlo. Entonces sale en
+        el <b>inicio</b> de quien tiene que leerlo, aunque no entre en el parte.
+        Es para lo que no puede esperar: <em>«no toquéis el cuadro de la piscina,
+        está sin tensión»</em>.
+      </p>
+
+      <h3 id="ap-teams">La copia a Microsoft Teams</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Si el hotel ya trabaja con Teams, HuraKan Tick puede mandar <b>una copia del aviso
+        al chat privado de cada persona</b> en Teams, con un enlace que abre el
+        parte. No sustituye a nada: el aviso sigue estando en la aplicación, y la
+        copia es para quien tiene Teams siempre abierto y la aplicación no.
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 12px">
+        <li>Se enciende en <b>Ajustes › Administrar el sistema › Teams</b>, y pide
+            los datos que da el informático: tenant, aplicación y secreto. Están
+            explicados paso a paso en <code>docs/TEAMS.md</code>.</li>
+        <li>Hay un interruptor <b>«Sólo los urgentes»</b>, que es lo que querrás
+            casi siempre: una copia de todo acaba en ruido, y el ruido se ignora.</li>
+        <li>Se puede quitar <b>persona a persona</b> desde su ficha en el equipo:
+            quien no use Teams no tiene por qué recibir nada.</li>
+      </ul>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Si Teams falla, no se pierde el aviso.</strong> Las copias salen
+          de una bandeja: si Microsoft no contesta, se reintenta más tarde en vez
+          de descartarlas, y lo que no se pudo entregar queda anotado. El aviso
+          dentro de la aplicación no depende de eso y llega igual.
+        </span>
+      </div>
+    </section>
+
+    <!-- ============================================================ -->
+    <section class="guia-seccion guia-entra" id="apariencia" data-papeles="recepcion tecnico responsable admin">
+      
+<h2><span class="guia-seccion__n">30</span> Ajustar la pantalla</h2>
+      <p class="guia-seccion__intro">
+        En <b>Ajustes → Apariencia</b>. Sólo cambia tu móvil: nadie más lo nota.
+      </p>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/97-apariencia.png" alt="La pantalla de apariencia con sus opciones"
+                 loading="lazy" width="390" height="844">
+          </div>
+          <figcaption>Tamaño de letra, espacio y cuánto detalle en la lista.</figcaption>
+        </figure>
+      </div>
+
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>Tamaño de la letra</b> — cuatro tamaños, de pequeña a enorme. Crece
+            todo, no sólo los textos: los botones también.</li>
+        <li><b>Espacio entre las cosas</b> — en compacto cabe casi una tarjeta más
+            por pantalla; en amplio se acierta mejor con el dedo.</li>
+        <li><b>Detalle de cada parte</b> — cuánta información se ve sin abrirlo.</li>
+        <li><b>Claro y oscuro</b> — el oscuro va bien de noche y en cuartos de
+            máquinas.</li>
+      </ul>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Se guarda en cada aparato.</strong> Lo que ajustes en tu móvil se
+          queda en tu móvil: si entras desde otro, lo encontrarás como estaba
+          en ese. Es a propósito: la letra que va bien en un teléfono no es la
+          que va bien en el ordenador del despacho.
+        </span>
+      </div>
+
+      <div class="guia-nota guia-nota--ojo">
+        <span>
+          <strong>Si algo cuesta de leer, esto se arregla en diez segundos.</strong>
+          Letra grande y espacio amplio cambian mucho las cosas con guantes o a
+          media luz. No es una configuración avanzada: está pensada para usarse.
+        </span>
+      </div>
+
+      <h3>Vista smartphone</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        En un ordenador o una tableta, la aplicación puede verse <b>dentro de un
+        teléfono centrado en la pantalla</b>. Sirve para ver desde el despacho
+        exactamente lo que ve el técnico en su móvil, y para enseñar la
+        aplicación sin tener que prestar uno.
+      </p>
+
+      <figure class="guia-figura guia-figura--ancha">
+        <div class="guia-escritorio">
+          <img src="assets/guia/98-vista-smartphone.png"
+               alt="La aplicación dentro de un teléfono centrado en la pantalla de un ordenador"
+               loading="lazy" width="1280" height="800">
+        </div>
+        <figcaption>En un portátil: el teléfono centrado, y arriba a la derecha
+          «Pantalla completa» si se puede quitar.</figcaption>
+      </figure>
+
+      <p style="color:var(--tinta-2);line-height:1.6;margin:14px 0 10px">
+        Lo decide un administrador en <b>Ajustes → Administración → Vista smartphone</b>,
+        con cuatro modos:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 14px">
+        <li><b>No</b> — como siempre. Es lo que viene puesto.</li>
+        <li><b>Sí, para todos</b> — todo el mundo la ve así y nadie puede
+            quitarla.</li>
+        <li><b>Habilitada y activada</b> — sale puesta, y cada uno puede
+            quitársela.</li>
+        <li><b>Habilitada sin activar</b> — sale quitada, y cada uno puede
+            ponérsela.</li>
+      </ul>
+
+      <div class="guia-figuras">
+        <figure class="guia-figura">
+          <div class="guia-movil">
+            <img src="assets/guia/99-vista-ajuste.png"
+                 alt="El ajuste de vista smartphone en la pantalla de Apariencia"
+                 loading="lazy" width="381" height="826">
+          </div>
+          <figcaption>Cuando se puede elegir: activarla y escoger la forma del
+            teléfono.</figcaption>
+        </figure>
+      </div>
+
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Cuando se deja elegir, en <b>Ajustes → Apariencia</b> sale el
+        interruptor y la <b>forma del teléfono</b>: 9:16, que es la de los
+        móviles de antes; 9:19,5, la de un iPhone; o 9:20, la de un Android
+        actual. El cambio de forma se ve al momento, sin recargar.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>En el móvil no cambia nada</strong>, ni tumbado: ya es un
+          teléfono. Tampoco en la aplicación de Android. Y si en el ordenador se
+          estrecha la ventana hasta tamaño de móvil, el marco desaparece y la
+          aplicación ocupa todo.
+        </span>
+      </div>
+
+      <h3>Cuando subes una versión nueva</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Cada móvil guarda la aplicación para funcionar sin cobertura, así que
+        puede seguir con la versión anterior aunque el servidor ya tenga la
+        nueva. En <b>Administración → Forzar la actualización de todos</b> se
+        arregla de una vez: cada aparato, la próxima vez que tenga conexión,
+        <b>sube lo que tenga sin enviar</b>, vacía lo guardado, cierra la sesión
+        y vuelve a descargarlo todo.
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        El orden importa y está pensado: un móvil con partes escritos en el
+        sótano no vacía nada hasta haberlos subido. Habrá que volver a
+        identificarse, y la pantalla de entrada explica por qué.
+      </p>
+
+      <h3>Mensajes y frase del día</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        En la ficha de cada persona, dentro de <b>Equipo</b>, hay tres cosas que
+        salen en su pantalla de inicio, cada una con su aspa para cerrarla:
+      </p>
+      <ul style="color:var(--tinta-2);line-height:1.7;padding-left:20px;margin:0 0 10px">
+        <li><b>Mensaje de bienvenida</b> — una sola vez, la primera vez que
+            entra. Viene apagado.</li>
+        <li><b>Aviso para el próximo inicio</b> — se enseña una vez y
+            desaparece; al escribir otro, se vuelve a enseñar.</li>
+        <li><b>Frase del día</b> — una distinta cada día, sin repetir. Las
+            frases se escriben en <b>Ajustes → Frases</b>, agrupadas en
+            categorías, y a cada persona se le asignan las que quieras. Si no
+            eliges ninguna, valen todas.</li>
+      </ul>
+
+      <h3>Iconografía</h3>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        En <b>Ajustes → Iconografía</b>, un administrador puede cambiar
+        cualquier icono de la aplicación por otro de <b>Font Awesome</b>: hay
+        mil cuatrocientos, y van dentro de la aplicación, así que se ven
+        también sin cobertura.
+      </p>
+      <p style="color:var(--tinta-2);line-height:1.6;margin:0 0 10px">
+        Se cambian los iconos de la aplicación, los de las <b>áreas</b> y los de
+        los más de <b>trescientos tipos de avería</b>, uno a uno y con buscador.
+        El sistema sugiere por el nombre: a «Limpieza y repasos» le ofrece una
+        escoba, y a «Cisterna», un inodoro. El cambio lo ve todo el
+        hotel, y con <b>«Dejarlo todo como estaba»</b> se vuelve a los de
+        siempre de una vez.
+      </p>
+
+      <div class="guia-nota">
+        <span>
+          <strong>Y hasta aquí la guía.</strong> Está toda buscable desde arriba,
+          y se lee sin cobertura. Si algo no queda claro, díselo a Daniel: la guía
+          se puede ampliar.
+        </span>
+      </div>
+          <h2 id="ap-refresco"><span class="num">30b</span> Cuándo se actualiza la pantalla sola</h2>
+      <p>El inicio y las listas se ponen al día solos cuando llega algo nuevo, para
+        no tener que recargar a mano. La ficha de un parte, la conversación y los
+        formularios <b>no</b>: ahí la pantalla sólo cambia si tú haces algo.</p>
+      <p><b>Mientras escribes no se refresca nunca.</b> Si llega una actualización
+        mientras tienes un mensaje a medias, se queda esperando y se aplica cuando
+        sueltas el teclado. Lo escrito no se pierde.</p>
+      <p class="nota">Si aun así prefieres que la pantalla no se mueva nunca sin
+        pedirlo, se apaga en Configuración → Comportamiento → «Refrescar la
+        pantalla sola al sincronizar». Lo que tú hagas se sigue viendo al momento.</p>
+
+    </section>
+
+    <p class="guia-sinnada" id="sinnada">
+      No hay nada con esa palabra en esta parte de la guía.
+    </p>
+
+  </main>
+</div>
+
+<button class="guia-arriba" id="b-arriba" aria-label="Volver arriba">
+  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+       stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M12 19V5M5 12l7-7 7 7"/>
+  </svg>
+</button>
+
+<script type="module" src="assets/js/guia.js"></script>
+</body>
+</html>

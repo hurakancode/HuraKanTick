@@ -1,0 +1,49 @@
+SET NAMES utf8mb4;
+-- =====================================================================
+--  SSTT 5.21 — Instrucciones por bloques
+--
+--  Hasta ahora una instrucción era texto plano y se pintaba tal cual.
+--  Para un manual —pasos, fotos, avisos de peligro, vídeo— eso se queda
+--  corto, así que se añade un segundo formato.
+--
+--  «formato» dice cómo hay que leer la columna «contenido»:
+--
+--     texto    → como siempre, texto plano. Lo que ya está escrito.
+--     bloques  → JSON de Editor.js, que la aplicación dibuja.
+--
+--  Lo ya escrito NO se toca ni se convierte: se queda en «texto» y se
+--  sigue viendo igual. Una migración automática de cuarenta
+--  instrucciones a un formato nuevo es la clase de cosa que se descubre
+--  rota tres semanas después.
+--
+--  IMPORTANTE: en «bloques» NUNCA se guarda HTML. Se guarda la
+--  estructura, y el HTML lo construye la aplicación escapando todo. Así
+--  no hay nada que sanear: lo que no se guarda no puede ejecutarse.
+--
+--  «instrucciones_medios» es donde viven las fotos y los vídeos de los
+--  manuales. No van en «adjuntos» porque allí cada fila cuelga de un
+--  parte, y una foto de un manual no pertenece a ninguna avería.
+-- =====================================================================
+
+ALTER TABLE `instrucciones` ADD COLUMN `formato` VARCHAR(16) NOT NULL DEFAULT 'texto';
+
+CREATE TABLE IF NOT EXISTS `instrucciones_medios` (
+  `id_medio`       INT AUTO_INCREMENT PRIMARY KEY,
+  `id_instruccion` INT NULL,
+  `archivo`        VARCHAR(255) NOT NULL,
+  `url`            VARCHAR(500) NOT NULL,
+  `mime`           VARCHAR(100) NULL,
+  `tamano`         INT NULL,
+  `ancho`          INT NULL,
+  `alto`           INT NULL,
+  `hash`           VARCHAR(64) NULL,
+  `nombre_original` VARCHAR(255) NULL,
+  `id_autor`       INT NULL,
+  `id_hotel`       INT NULL,
+  `creado`         DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  KEY `ix_medios_instr` (`id_instruccion`),
+  KEY `ix_medios_hash` (`hash`),
+  CONSTRAINT `fk_medios_instr` FOREIGN KEY (`id_instruccion`) REFERENCES `instrucciones`(`id_instruccion`),
+  CONSTRAINT `fk_medios_autor` FOREIGN KEY (`id_autor`) REFERENCES `login`(`id_login`),
+  CONSTRAINT `fk_medios_hotel` FOREIGN KEY (`id_hotel`) REFERENCES `hoteles`(`id_hotel`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

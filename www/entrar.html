@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Entrando… · HuraKan Tick</title>
+
+<!-- Un enlace de auto-entrada no debe acabar en el historial de nadie
+     ni en un buscador: lleva una llave dentro. -->
+<meta name="robots" content="noindex, nofollow, noarchive">
+<meta name="referrer" content="no-referrer">
+
+<link rel="stylesheet" href="assets/css/app.css">
+<style>
+  .entrada {
+    min-height: 100dvh;
+    display: grid; place-items: center;
+    padding: 24px;
+    text-align: center;
+  }
+  .entrada__caja { max-width: 340px; }
+
+  .entrada__rueda {
+    width: 46px; height: 46px; margin: 0 auto 20px;
+    border: 4px solid var(--borde);
+    border-top-color: var(--marca);
+    border-radius: 50%;
+    animation: gira 900ms linear infinite;
+  }
+  @keyframes gira { to { transform: rotate(360deg); } }
+
+  .entrada h1 { font-size: 1.2rem; margin: 0 0 8px; color: var(--tinta); }
+  .entrada p  { color: var(--tinta-2); line-height: 1.6; margin: 0 0 18px; }
+
+  .entrada__mal .entrada__rueda {
+    animation: none;
+    border-color: color-mix(in srgb, var(--peligro) 35%, transparent);
+    border-top-color: var(--peligro);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .entrada__rueda { animation: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="entrada" id="caja">
+  <div class="entrada__caja">
+    <div class="entrada__rueda" aria-hidden="true"></div>
+    <h1 id="titulo">Entrando…</h1>
+    <p id="texto">Un momento, que estamos comprobando el enlace.</p>
+    <div id="salida"></div>
+  </div>
+</div>
+
+<script type="module">
+import { api, fijarToken } from './assets/js/api.js';
+
+const caja   = document.getElementById('caja');
+const titulo = document.getElementById('titulo');
+const texto  = document.getElementById('texto');
+const salida = document.getElementById('salida');
+
+function mal(t, p) {
+  caja.classList.add('entrada__mal');
+  titulo.textContent = t;
+  texto.textContent = p;
+  salida.innerHTML =
+    '<a class="btn btn--principal btn--bloque" href="index.html">Entrar con mi usuario</a>';
+}
+
+(async () => {
+  const q = new URLSearchParams(location.search);
+  const u = q.get('u');
+  const k = q.get('k');
+
+  if (!u || !k) {
+    mal('Este enlace está incompleto',
+        'Le falta una parte. Copia la dirección entera, hasta el final.');
+    return;
+  }
+
+  /* La llave se quita de la barra de direcciones en cuanto se lee.
+     Así no se queda a la vista de quien pase por detrás, ni viaja al
+     siguiente sitio si alguien pulsa un enlace desde aquí. */
+  history.replaceState(null, '', location.pathname);
+
+  try {
+    const r = await api.entrarConEnlace(u, k);
+
+    /* Se guarda el testigo igual que en la entrada normal: sin esto la
+       comprobación del enlace sale bien y la sesión se pierde acto
+       seguido, que es lo que pasaba. */
+    fijarToken(r.token);
+
+    titulo.textContent = `Hola, ${r.usuario?.nombre || ''}`.trim();
+    texto.textContent = 'Ya estás dentro.';
+    // Un respiro para que dé tiempo a leer quién ha entrado: en una
+    // tablet compartida, saber con qué cuenta estás importa.
+    setTimeout(() => { location.replace('index.html#/panel'); }, 900);
+  } catch (e) {
+    mal('Este enlace ya no vale', e.message || 'Pídele otro a tu responsable.');
+  }
+})();
+</script>
+</body>
+</html>

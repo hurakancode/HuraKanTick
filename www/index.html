@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="es" translate="no">
+<head>
+  <meta charset="UTF-8">
+  <meta name="hurakan-tick-version" content="7.90.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+  <meta name="description" content="HuraKan Tick: partes de trabajo e incidencias. Funciona sin conexión.">
+  <meta name="theme-color" content="#0B5563" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#08151A" media="(prefers-color-scheme: dark)">
+  <meta name="color-scheme" content="light dark">
+
+  <!-- Comportamiento de aplicación en el móvil -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="HuraKan Tick">
+  <meta name="format-detection" content="telephone=no">
+
+  <title>HuraKan Tick · Ticketing</title>
+
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="icon" href="assets/icons/icono.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/icons/icono-180.png">
+  <script>
+    /* VISTA SMARTPHONE — se decide aquí, antes de cargar nada.
+
+       Si el superadministrador la ha puesto y esta es una pantalla grande,
+       la aplicación se abre dentro de un teléfono (marco.html). Se mira lo
+       que dejó guardado la última vez, porque aquí aún no hay red ni
+       catálogo; si cambió, la aplicación lo corrige al cargar.
+
+       Sin nada guardado —o con el ajuste en «No»— esto no hace nada y
+       todo arranca exactamente igual que siempre. Para quitarlo del todo,
+       basta con borrar este bloque. */
+    (function () {
+      try {
+        if (window.top !== window.self) return;       // ya dentro del marco
+        if (window.Capacitor) return;                 // la app de Android, nunca
+        var v = JSON.parse(localStorage.getItem('hurakantick_vista_movil') || 'null');
+        if (!v || !v.on) return;
+        var corto = Math.min(screen.width || 0, screen.height || 0);
+        if (corto < 600 || window.innerWidth < 700) return;   // ya es un móvil
+        window.__hurakantick_al_marco = true;
+        document.documentElement.style.visibility = 'hidden';
+        location.replace('marco.html' + location.search + location.hash);
+      } catch (e) { /* sin almacenamiento: se sigue como siempre */ }
+    })();
+  </script>
+  <link rel="stylesheet" href="assets/css/app.css">
+  <link rel="stylesheet" href="assets/css/fa.css">
+</head>
+<body>
+
+  <!-- Pantalla de arranque: se sustituye en cuanto carga la aplicación -->
+  <div id="arranque" style="position:fixed;inset:0;display:grid;place-items:center;background:#EDF1F2">
+    <div style="text-align:center">
+      <!-- Si falta el logo, el icono de siempre en vez de una imagen rota:
+           es lo primero que ve todo el mundo al abrir la aplicación.
+
+           La plantilla va ANTES que la imagen, y no por estética. Estaba
+           después, y por https el trabajador de servicio contesta el 404
+           del logo tan deprisa que el error saltaba antes de que el
+           navegador hubiera leído la plantilla: «Cannot read properties
+           of null (reading 'innerHTML')». Por http no daba tiempo a que
+           pasara. Lo cazó pruebas/sincertificado.py. -->
+      <template id="logo-respaldo"><div style="width:60px;height:60px;margin:0 auto 16px;border-radius:19px;background:#0B5563;
+                  display:grid;place-items:center">
+        <svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#fff" stroke-width="1.9"
+             stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14.7 6.3a4 4 0 0 0 5.3 5.3l-8.6 8.6a2.8 2.8 0 0 1-4-4l8.6-8.6a4 4 0 0 0-1.3-1.3Z"/>
+          <path d="m3 6 3-3 4 4-3 3Z"/>
+        </svg>
+      </div></template>
+      <div style="width:72px;height:72px;margin:0 auto 16px;display:grid;place-items:center">
+        <img src="assets/icons/HuraKan_Tick_Logo.png" alt="HuraKan Tick" style="max-width:100%;max-height:100%;object-fit:contain;"
+             onerror="var t = document.getElementById('logo-respaldo'), c = this.parentNode;
+                      if (t &amp;&amp; c) c.outerHTML = t.innerHTML; else this.remove();">
+      </div>
+
+      <div style="font:600 15px/1.4 system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;color:#46585D">
+        Cargando…
+      </div>
+    </div>
+  </div>
+
+  <noscript>
+    <div style="padding:24px;font:15px/1.5 system-ui,sans-serif;text-align:center">
+      <h1 style="font-size:18px">Esta aplicación necesita JavaScript</h1>
+      <p>Actívalo en el navegador para poder usar los partes de trabajo.</p>
+    </div>
+  </noscript>
+
+  <script>
+    /* ------------------------------------------------------------------
+       DIRECCIÓN DEL SERVIDOR
+
+       En el navegador se detecta sola: la aplicación cuelga del mismo
+       sitio que la API.
+
+       En el APK NO puede detectarse, porque Android sirve la aplicación
+       desde https://localhost. Escríbela en la línea de abajo antes de
+       compilar, por ejemplo:
+
+           https://partes.miempresa.com/hurakantick/api
+
+       Si se deja vacía, la aplicación arranca igual y la pide en la
+       pantalla de entrada (enlace «Servidor»). Eso vale si tienes varias
+       instalaciones; para una sola, mejor fijarla aquí.
+       ------------------------------------------------------------------ */
+    window.HURAKANTICK_API = '';
+  </script>
+
+  <script type="module" src="assets/js/app.js"></script>
+  <script>
+    // Se capturan los fallos de arranque para poder decir qué pasó de verdad.
+    // Un mensaje genérico no sirve de nada cuando la app está en un servidor
+    // ajeno y no se puede depurar.
+    window.__hurakantick_errores = [];
+    window.addEventListener('error', function (e) {
+      var m = e.message || 'error';
+      if (e.target && e.target.tagName === 'SCRIPT') {
+        m = 'No se ha podido cargar ' + (e.target.src || '(script)');
+      } else if (e.filename) {
+        m += '  (' + e.filename.split('/').pop() + ':' + e.lineno + ')';
+      }
+      window.__hurakantick_errores.push(m);
+    }, true);
+    window.addEventListener('unhandledrejection', function (e) {
+      window.__hurakantick_errores.push('' + (e.reason && e.reason.message ? e.reason.message : e.reason));
+    });
+
+    setTimeout(function () {
+      var a = document.getElementById('arranque');
+      if (!a || document.getElementById('app') || document.getElementById('acceso')) return;
+
+      var detalle = window.__hurakantick_errores.length
+        ? window.__hurakantick_errores.slice(0, 4).join('<br>')
+        : 'No se ha registrado ningún error concreto.';
+
+      a.innerHTML =
+        '<div style="padding:22px;max-width:520px;font:14px/1.55 system-ui,sans-serif;color:#46585D">'
+        + '<strong style="display:block;font-size:17px;margin-bottom:10px;color:#0B191D">'
+        + 'La aplicación no ha podido arrancar</strong>'
+        + '<div style="background:#FDECEA;border:1px solid #F3C2BD;border-radius:8px;padding:11px;'
+        + 'margin-bottom:14px;color:#C7362B;font-size:12.5px;word-break:break-word">' + detalle + '</div>'
+        + 'Causas habituales: el servidor envía los <code>.js</code> con un tipo MIME '
+        + 'incorrecto, falta algún archivo al subirlos, o el navegador tiene el '
+        + 'almacenamiento bloqueado.'
+        + '<div style="margin-top:16px">'
+        + '<a href="diagnostico.html" style="display:inline-block;background:#0B5563;color:#fff;'
+        + 'padding:11px 18px;border-radius:10px;text-decoration:none;font-weight:600">'
+        + 'Abrir el diagnóstico</a></div>'
+        + '<p style="margin-top:14px;font-size:12.5px">El diagnóstico comprueba archivo '
+        + 'por archivo y dice exactamente qué falla.</p>'
+        + '<p style="margin-top:10px;font-size:11.5px;color:#7B8C91">Versión '
+        + (document.querySelector('meta[name=hurakan-tick-version]')?.content || '?')
+        + ' · si esperabas otra, el navegador está sirviendo archivos guardados: '
+        + 'recarga con Ctrl+F5.</p></div>';
+    }, 6000);
+
+    // Se retira el arranque cuando la aplicación pinta su primera pantalla.
+    new MutationObserver(function (m, obs) {
+      if (document.getElementById('app') || document.getElementById('acceso')) {
+        var a = document.getElementById('arranque');
+        if (a) a.remove();
+        obs.disconnect();
+      }
+    }).observe(document.body, { childList: true, subtree: true });
+  </script>
+</body>
+</html>

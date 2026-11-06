@@ -1,0 +1,88 @@
+INSTALACIÓN EN XAMPP (Windows)
+==============================
+
+Ya tienes la carpeta en C:\xampp\htdocs\hurakantick
+
+Sólo faltan DOS enlaces. Ábrelos en el navegador, en este orden.
+Cambia 10.66.5.246 por la dirección de tu servidor si es otra.
+
+
+PASO 1 — crear la base de datos con datos de ejemplo
+----------------------------------------------------
+http://10.66.5.246/hurakantick/tools/instalar.php?clave=instalar&demo
+
+Tarda unos segundos. Debe terminar diciendo "Listo".
+
+
+PASO 2 — agrupar los tipos de avería por oficio
+-----------------------------------------------
+http://10.66.5.246/hurakantick/tools/clasificar.php?clave=instalar&aplicar
+
+Termina diciendo "Aplicado a 313 elementos".
+
+
+YA ESTÁ. Entra en:
+http://10.66.5.246/hurakantick/www/index.html
+
+    Usuario:    daniel.melgar@hotelbenalma.com
+    Contraseña: Selenta2026+
+
+Cámbiala en cuanto entres: Ajustes › Contraseña.
+
+
+NO HACE FALTA IMPORTAR NINGÚN SQL
+---------------------------------
+El instalador lo hace todo. Usa SQLite, que es un solo fichero en
+db\hurakantick.sqlite y no necesita MySQL ni phpMyAdmin.
+
+Si prefieres MySQL, mira docs/INSTALACION.md.
+
+
+OTRAS CUENTAS DE PRUEBA (contraseña Selenta2026+)
+---------------------------------------------
+    carlos.duarte@hotelbenalma.com      Responsable de Servicios Técnicos
+    david.sstt@hotelbenalma.com     Técnico
+    fany.prieto@hotelbenalma.com    Pisos y limpieza
+    recepcion.costadelsol@hotelbenalma.com    Recepción
+
+Entra con cada una: la aplicación se ve distinta según el puesto.
+Eso es a propósito.
+
+
+SI ALGO NO CARGA
+----------------
+http://10.66.5.246/hurakantick/www/diagnostico.html
+
+Comprueba archivo por archivo y dice qué falla.
+
+
+DOS AVISOS
+----------
+1. Si el paso 1 se queja de permisos, dale permiso de escritura a las
+   carpetas db\ y api\uploads\ para el usuario que ejecuta Apache.
+
+2. Estás en http:// sin cifrar. La aplicación funciona, pero NO podrá
+   abrirse sin cobertura: el navegador sólo lo permite con https.
+   Para uso en el móvil por los pasillos necesitas HTTPS o el APK.
+   Lo demás (guardar sin red y sincronizar después) sí funciona.
+
+
+SI TE PASO UNA VERSIÓN NUEVA
+----------------------------
+Sustituye la carpeta y abre ESTE enlace:
+
+  http://10.66.5.246/hurakantick/tools/instalar.php?clave=instalar&actualizar
+
+Crea las tablas y los ajustes que trae la versión nueva. NO toca ningún
+dato: ni partes, ni usuarios, ni configuración que ya tuvieras.
+
+Es importante hacerlo. Si sólo cambias los ficheros, las funciones
+nuevas parecen no existir y no da ningún error, que es lo peor que
+puede pasar.
+
+
+CUANDO TERMINES DE PROBAR
+-------------------------
+Borra o protege la carpeta tools\, o al menos cambia la clave del
+instalador: cualquiera que conozca la dirección podría reinstalar
+encima y borrar los datos.

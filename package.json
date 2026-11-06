@@ -1,0 +1,31 @@
+{
+  "name": "hurakan-tick",
+  "version": "7.90.0",
+  "description": "Partes de trabajo e incidencias de servicios tecnicos. PWA offline-first y app Android via Capacitor.",
+  "private": true,
+  "scripts": {
+    "servidor": "php -S 0.0.0.0:8080 -t .",
+    "instalar-demo": "php tools/instalar.php --demo",
+    "android:preparar": "npx cap add android",
+    "android:copiar": "npx cap copy android && npx cap sync android",
+    "android:abrir": "npx cap open android",
+    "android:apk": "cd android && ./gradlew assembleDebug",
+    "android:apk-firmado": "cd android && ./gradlew assembleRelease",
+    "importar-fotos": "php tools/importar_fotos.php"
+  },
+  "dependencies": {
+    "@capacitor/android": "^6.1.2",
+    "@capacitor/app": "^6.0.1",
+    "@capacitor/camera": "^6.0.2",
+    "@capacitor/core": "^6.1.2",
+    "@capacitor/haptics": "^6.0.1",
+    "@capacitor/local-notifications": "^6.1.0",
+    "@capacitor/network": "^6.0.2",
+    "@capacitor/push-notifications": "^6.0.5",
+    "@capacitor/splash-screen": "^6.0.2",
+    "@capacitor/status-bar": "^6.0.1"
+  },
+  "devDependencies": {
+    "@capacitor/cli": "^6.1.2"
+  }
+}

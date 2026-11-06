@@ -1,0 +1,30 @@
+# hurakantick-candado-4 — lo escribe HuraKan Tick; no editar a mano.
+Options -Indexes
+<IfModule mod_mime.c>
+  RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar .pht
+  AddType text/plain .php .phtml .php5 .php7 .php8 .phar .pht
+</IfModule>
+<FilesMatch "\.(php|phtml|php[3-8]|phar|pht)$">
+  SetHandler none
+  <IfModule mod_authz_core.c>
+    Require all denied
+  </IfModule>
+  <IfModule !mod_authz_core.c>
+    <IfModule mod_authz_host.c>
+      Deny from all
+    </IfModule>
+  </IfModule>
+</FilesMatch>
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options nosniff
+  Header set Content-Security-Policy "default-src 'none'; sandbox"
+</IfModule>
+<IfModule mod_php.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+  php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+  php_flag engine off
+</IfModule>

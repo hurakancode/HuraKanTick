@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico · HuraKan Tick</title>
+<style>
+  :root { color-scheme: light dark; }
+  body {
+    font: 15px/1.5 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    margin: 0; padding: 20px 16px 60px; background: #EDF1F2; color: #0B191D;
+    max-width: 780px; margin-inline: auto;
+  }
+  h1 { font-size: 20px; letter-spacing: -.02em; margin: 0 0 4px; }
+  h2 { font-size: 15px; margin: 26px 0 8px; letter-spacing: -.01em; }
+  p.sub { color: #46585D; margin: 0 0 20px; font-size: 13.5px; }
+  .fila {
+    display: flex; gap: 10px; align-items: flex-start;
+    padding: 9px 12px; background: #fff; border: 1px solid #E7EDEE;
+    border-bottom: 0; font-size: 13.5px;
+  }
+  .fila:first-of-type { border-radius: 10px 10px 0 0; }
+  .fila:last-of-type  { border-radius: 0 0 10px 10px; border-bottom: 1px solid #E7EDEE; }
+  .marca { font-weight: 700; flex: none; width: 22px; text-align: center; }
+  .ok   { color: #0D7C57; }
+  .mal  { color: #C7362B; }
+  .avis { color: #B45309; }
+  .nom  { flex: 1; min-width: 0; word-break: break-word; }
+  .det  { display: block; color: #7B8C91; font-size: 12px; margin-top: 2px; }
+  code { font-family: ui-monospace, Menlo, Consolas, monospace; font-size: 12px;
+         background: #E9EFF0; padding: 1px 5px; border-radius: 4px; }
+  .caja { background: #fff; border: 1px solid #E7EDEE; border-radius: 10px;
+          padding: 14px; margin-top: 12px; }
+  .caja--mal { background: #FDECEA; border-color: #F3C2BD; }
+  pre { white-space: pre-wrap; word-break: break-word; font-size: 12px;
+        background: #0B191D; color: #E9F1F2; padding: 12px; border-radius: 8px;
+        overflow-x: auto; }
+  button { font: inherit; padding: 11px 16px; border-radius: 10px; border: 0;
+           background: #0B5563; color: #fff; font-weight: 600; cursor: pointer; }
+  a { color: #0B5563; }
+</style>
+</head>
+<body>
+
+<h1>Diagnóstico</h1>
+<p class="sub">Esta página no usa módulos ni nada moderno, así que funciona
+aunque la aplicación no arranque. Dice exactamente qué falla.</p>
+
+<div id="resultado">Comprobando…</div>
+
+<h2>Errores capturados</h2>
+<div id="errores" class="caja">Ninguno todavía.</div>
+
+<div style="margin-top:22px">
+  <button onclick="location.reload()">Volver a comprobar</button>
+  <a href="index.html" style="margin-left:14px">Ir a la aplicación</a>
+</div>
+
+<script>
+/* Sin módulos, sin flechas raras: esto tiene que funcionar en cualquier sitio. */
+var errores = [];
+window.onerror = function (m, f, l, c, e) {
+  errores.push('ERROR: ' + m + '\n  en ' + f + ':' + l + ':' + c + (e && e.stack ? '\n' + e.stack : ''));
+  pintarErrores();
+};
+window.addEventListener('unhandledrejection', function (e) {
+  errores.push('PROMESA RECHAZADA: ' + (e.reason && e.reason.stack ? e.reason.stack : e.reason));
+  pintarErrores();
+});
+function pintarErrores() {
+  document.getElementById('errores').innerHTML = errores.length
+    ? '<pre>' + errores.join('\n\n').replace(/</g, '&lt;') + '</pre>'
+    : 'Ninguno todavía.';
+}
+
+var MODULOS = [
+  'assets/js/app.js', 'assets/js/api.js', 'assets/js/db.js', 'assets/js/sync.js',
+  'assets/js/ui.js', 'assets/js/piezas.js', 'assets/js/sonido.js',
+  'assets/js/views/acceso.js', 'assets/js/views/panel.js', 'assets/js/views/lista.js',
+  'assets/js/views/ticket.js', 'assets/js/views/nuevo.js', 'assets/js/views/cuenta.js',
+  'assets/js/views/avisos.js', 'assets/js/views/equipo.js', 'assets/js/views/fotos.js',
+  'assets/js/views/selectores.js', 'assets/js/views/conflictos.js',
+  'assets/css/app.css', 'manifest.webmanifest', 'sw.js'
+];
+
+var filas = [];
+function fila(estado, nombre, detalle) {
+  var m = estado === 'ok' ? '✓' : estado === 'mal' ? '✕' : '!';
+  filas.push('<div class="fila"><span class="marca ' + estado + '">' + m + '</span>'
+    + '<span class="nom">' + nombre
+    + (detalle ? '<span class="det">' + detalle + '</span>' : '') + '</span></div>');
+  document.getElementById('resultado').innerHTML = filas.join('');
+}
+
+function seccion(t) {
+  filas.push('<h2>' + t + '</h2>');
+}
+
+function pedir(url, cb) {
+  var x = new XMLHttpRequest();
+  // El separador correcto según la dirección ya lleve parámetros o no.
+  x.open('GET', url + (url.indexOf('?') === -1 ? '?' : '&') + '_d=' + Date.now(), true);
+  // Si hay sesión se manda: a un administrador el servidor le cuenta más.
+  try { var tk = localStorage.getItem('hurakantick_token'); if (tk) x.setRequestHeader('Authorization', 'Bearer ' + tk); } catch (e) {}
+  x.onreadystatechange = function () {
+    if (x.readyState === 4) {
+      cb(x.status, x.getResponseHeader('Content-Type') || '(sin tipo)', x.responseText);
+    }
+  };
+  x.onerror = function () { cb(0, '(sin respuesta)', ''); };
+  try { x.send(); } catch (e) { cb(0, '(bloqueado)', ''); }
+}
+
+/* ---------------- 1. Versión ---------------- */
+seccion('Versión');
+
+var verPagina = '(no marcada)';
+var m = document.querySelector('meta[name=hurakan-tick-version]');
+if (m) verPagina = m.content;
+
+// Se compara la versión del index.html que el navegador está usando con
+// la que hay en el servidor. Si no coinciden, está sirviendo archivos
+// guardados: es la causa número uno de «he actualizado y sigue igual».
+pedir('version.json', function (estado, tipo, cuerpo) {
+  if (estado !== 200) {
+    fila('avis', 'Versión en el servidor', 'No se encuentra version.json (HTTP ' + estado + ')');
+    return;
+  }
+  var v;
+  try { v = JSON.parse(cuerpo); } catch (e) {
+    fila('mal', 'Versión en el servidor', 'version.json no es JSON válido');
+    return;
+  }
+  pedir('index.html', function (e2, t2, html) {
+    var mm = html.match(/name="hurakan-tick-version" content="([^"]*)"/);
+    var enServidor = mm ? mm[1] : '(no marcada)';
+    fila('ok', 'En el servidor', v.version + ' · ' + v.fecha);
+    if (enServidor === v.version) {
+      fila('ok', 'index.html del servidor', enServidor);
+    } else {
+      fila('mal', 'index.html del servidor', enServidor +
+           ' — no coincide con version.json. Faltan archivos por subir.');
+    }
+  });
+});
+
+seccion('Entorno');
+fila('ok', 'Dirección', location.href);
+fila(location.protocol === 'https:' ? 'ok' : 'avis',
+     'Protocolo: ' + location.protocol,
+     location.protocol === 'https:'
+       ? 'Contexto seguro: todo disponible.'
+       : 'Sin HTTPS el trabajador de servicio y los avisos del sistema NO funcionan. La aplicación sí, pero sin uso offline completo.');
+
+fila(('serviceWorker' in navigator) ? 'ok' : 'avis',
+     'Trabajador de servicio',
+     ('serviceWorker' in navigator) ? 'Disponible.' : 'No disponible (requiere HTTPS o localhost).');
+
+fila(window.indexedDB ? 'ok' : 'mal', 'IndexedDB',
+     window.indexedDB ? 'Disponible.' : 'NO disponible: la aplicación no puede guardar nada.');
+
+try {
+  localStorage.setItem('_p', '1'); localStorage.removeItem('_p');
+  fila('ok', 'localStorage', 'Escritura correcta.');
+} catch (e) {
+  fila('mal', 'localStorage', 'Bloqueado: ' + e.message + '. ¿Navegación privada o cookies bloqueadas?');
+}
+
+var soportaModulos = false;
+try { new Function('import("")'); soportaModulos = true; } catch (e) {}
+fila(soportaModulos ? 'ok' : 'mal', 'Módulos de JavaScript',
+     soportaModulos ? 'El navegador los admite.' : 'Navegador demasiado antiguo.');
+
+fila('ok', 'Navegador', navigator.userAgent);
+
+/* ---------------- 2. Archivos ---------------- */
+seccion('Archivos de la aplicación');
+var pendientes = MODULOS.length;
+var fallos = 0, mimeMal = 0, apiMal = '';
+
+MODULOS.forEach(function (m) {
+  pedir(m, function (estado, tipo) {
+    var esJs = /\.js$/.test(m);
+    if (estado !== 200) {
+      fallos++;
+      fila('mal', m, 'HTTP ' + estado + ' — el archivo no se ha subido o no se puede leer.');
+    } else if (esJs && !/javascript|ecmascript/i.test(tipo)) {
+      mimeMal++;
+      fila('mal', m, 'Se sirve como <code>' + tipo + '</code>. Debe ser <code>text/javascript</code> o el navegador lo bloquea.');
+    } else {
+      fila('ok', m, tipo);
+    }
+    if (--pendientes === 0) comprobarApi();
+  });
+});
+
+/* ---------------- 3. API ---------------- */
+function comprobarApi() {
+  seccion('Servidor');
+  var base = location.pathname.replace(/\/(www\/)?[^/]*$/, '') + '/api';
+  var url = base + '/index.php?_ruta=estado';
+  fila('ok', 'Dirección deducida de la API', base);
+
+  pedir(url, function (estado, tipo, cuerpo) {
+    if (estado !== 200) {
+      apiMal = 'HTTP ' + estado;
+      fila('mal', 'API', 'HTTP ' + estado + ' en ' + url);
+    } else {
+      try {
+        var d = JSON.parse(cuerpo);
+        if (!d.instalada) { apiMal = 'sin instalar'; }
+        /* Los detalles del servidor sólo llegan antes de instalar o a un
+           administrador con sesión: no se le cuentan a cualquiera. */
+        var hay = d.motor !== undefined;
+        fila(d.ok ? 'ok' : 'mal', 'API responde',
+             (hay ? 'Motor ' + d.motor + ' · PHP ' + d.php + ' · ' + d.usuarios + ' usuarios'
+                  : 'Responde. Los detalles del servidor sólo se enseñan a un administrador con sesión.')
+             + (d.instalada ? '' : ' · SIN INSTALAR: ejecuta tools/instalar.php'));
+        if (hay) {
+          fila(d.gd ? 'ok' : 'avis', 'Redimensionado de fotos (GD)',
+               d.gd ? 'Disponible.' : 'No disponible: las fotos se guardan sin reducir en el servidor.');
+        }
+      } catch (e) {
+        apiMal = 'respuesta no válida';
+        fila('mal', 'API', 'Responde pero no con JSON. Primeros caracteres: '
+             + cuerpo.substring(0, 160).replace(/</g, '&lt;'));
+      }
+    }
+    resumen();
+  });
+}
+
+/* ---------------- 4. Resumen ---------------- */
+function resumen() {
+  var caja = document.createElement('div');
+  caja.className = 'caja' + ((fallos || mimeMal || apiMal) ? ' caja--mal' : '');
+  var t = '';
+  if (mimeMal) {
+    t += '<strong>El servidor envía los .js con el tipo equivocado.</strong><br>'
+       + 'Es lo que impide arrancar. Soluciones:<br>'
+       + '· En Apache, comprueba que <code>www/.htaccess</code> se está leyendo '
+       + '(hace falta <code>AllowOverride All</code>).<br>'
+       + '· En nginx, añade <code>include mime.types;</code> en el bloque http.<br>'
+       + '· En IIS, añade el tipo MIME <code>.js → text/javascript</code>.';
+  } else if (fallos) {
+    t += '<strong>Faltan ' + fallos + ' archivos.</strong><br>'
+       + 'Vuelve a subir la carpeta <code>www</code> completa, con sus subcarpetas '
+       + '<code>assets/js/views</code>, <code>assets/css</code> y <code>assets/icons</code>.';
+  } else if (apiMal === 'sin instalar') {
+    t += '<strong>La base de datos está vacía.</strong><br>'
+       + 'Ejecuta <code>php tools/instalar.php</code> en el servidor, o carga '
+       + '<code>db/schema.mysql.sql</code> y <code>db/catalogos.mysql.sql</code>.';
+  } else if (apiMal) {
+    t += '<strong>La API no responde bien (' + apiMal + ').</strong><br>'
+       + 'Comprueba que la carpeta <code>api</code> está subida, que PHP funciona '
+       + 'y que <code>api/config.local.php</code> apunta a tu base de datos.<br>'
+       + 'La aplicación arrancará igualmente, pero no podrás entrar.';
+  } else {
+    t = '<strong>Todo correcto.</strong> Si la aplicación aun así no arranca, '
+      + 'mira arriba en «Errores capturados» y también la consola del navegador (F12).'
+      + '<br><br>Si el mensaje de error que ves no coincide con esta versión, '
+      + 'el navegador está sirviendo archivos guardados: recarga con '
+      + '<code>Ctrl+F5</code> o borra la caché del sitio.';
+  }
+  caja.innerHTML = t;
+  document.getElementById('resultado').appendChild(caja);
+}
+</script>
+</body>
+</html>

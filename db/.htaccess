@@ -1,0 +1,13 @@
+# La carpeta de bases de datos no se sirve por web.
+#
+# Contiene hurakantick.sqlite y hurakantick-papelera.sqlite. Cualquiera que acertara la
+# dirección se llevaría el sistema entero, incluido lo borrado.
+#
+# En Apache basta con esto. En nginx hay que añadirlo a la configuración
+# del sitio: location ~ /db/ { deny all; }
+Require all denied
+<IfModule !mod_authz_core.c>
+  Order allow,deny
+  Deny from all
+</IfModule>
+Options -Indexes

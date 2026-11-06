@@ -1,0 +1,27 @@
+HuraKan Tick · bak_config
+=================
+
+  upload/user/     Aquí se dejan los .txt de las personas que se van a
+                   dar de alta. Se leen desde «Administración →
+                   Importar/Exportar personas» y, una vez creada la
+                   persona, EL FICHERO SE BORRA: lleva su contraseña
+                   inicial dentro y no debe quedarse ahí.
+
+                   Si un fichero falla, no se borra: se le pone la
+                   extensión .error y al lado queda un .motivo.txt
+                   explicando qué hay que corregir.
+
+  download/user/   Aquí aparecen los .txt que genera la exportación.
+                   No llevan contraseña: en su lugar pone ****
+
+Esta carpeta NO se sirve por web (mira el .htaccess). Los ficheros se
+traen y se llevan por FTP, o desde la propia pantalla de la aplicación.
+
+La plantilla para rellenar se descarga desde esa misma pantalla, y viene
+con todos los valores de ESTE hotel ya listados para marcar. No la
+escribas a mano: si mañana se añade un departamento, la plantilla
+descargada lo trae y una copia vieja no.
+
+EJEMPLO-relleno.txt  es una ficha de ejemplo ya rellenada, para ver cómo
+queda. Está aquí y no en upload/user a propósito: en upload/user se
+daría de alta a una «Marta López» que no existe.

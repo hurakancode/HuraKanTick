@@ -1,0 +1,131 @@
+# ══════════════════════════════════════════════════════════════
+#  HuraKan Tick · ALTA DE UNA PERSONA
+#
+#  CÓMO SE RELLENA — tres reglas y ya:
+#
+#    1. Escribe debajo de cada etiqueta, con la sangría que
+#       ya está puesta.
+#    2. En las listas, marca con  [x]  y deja  [ ]  el resto.
+#    3. Las líneas que empiezan por # son notas: no se leen.
+#
+#  No borres las etiquetas ni cambies su texto.
+#  Lo que dejes en blanco se queda sin poner.
+#
+#  Guarda una copia por persona en  bak_config/upload/user/
+#  con cualquier nombre que acabe en .txt  (por ejemplo,
+#  marta.txt). Al darla de alta, el fichero se borra: lleva
+#  su contraseña dentro.
+# ══════════════════════════════════════════════════════════════
+
+# ── Quién es ──────────────────────────────────────────────────
+
+Hotel:
+# Marca uno. Si sólo hay uno, déjalo marcado.
+  [x] Hotel Benalma
+
+Nombre de usuario:
+# Con el que entra. Sin espacios ni acentos. Al menos 3 letras.
+  marta.lopez
+
+Correo:
+# Hace falta para los avisos y para la copia a Teams.
+  marta.lopez@hotelbenalma.com
+
+Contraseña inicial:
+# Al menos 8 caracteres. Que la cambie ella al entrar.
+  Benalma2026!
+
+Nombre:
+  Marta
+
+Primer apellido:
+  López
+
+Teléfono:
+# Opcional. Sirve para que un compañero pueda llamarle.
+  600 11 22 33
+
+# ── Qué puede hacer ──────────────────────────────────────────
+
+Permisos:
+# Marca UNO. Es el papel principal.
+#   Administrador  lo cambia todo, incluida la configuración
+#   Responsable    reparte trabajo y ve todos los partes
+#   Técnico        atiende los partes que le toquen
+#   Sólo avisar    abre partes y los sigue, pero no los trabaja
+  [ ] Administrador
+  [ ] Responsable
+  [x] Técnico
+  [ ] Sólo avisar
+
+Departamento:
+# Marca uno: el suyo, donde trabaja.
+  [ ] Cocina / A&B
+  [ ] Informática
+  [ ] Jardinería
+  [ ] Pisos / Limpieza
+  [ ] Recepción
+  [ ] Seguridad
+  [x] Servicios Técnicos
+
+Departamentos adicionales:
+# Marca los que hagan falta, o ninguno. Para quien echa una
+# mano en otro sitio: verá y podrá trabajar también esos partes.
+  [ ] Cocina / A&B
+  [x] Informática
+  [ ] Jardinería
+  [ ] Pisos / Limpieza
+  [ ] Recepción
+  [ ] Seguridad
+  [ ] Servicios Técnicos
+
+Puede desactivar el modo sin cobertura:
+# Si no marcas nada, se aplica lo que diga la configuración
+# del hotel. Marcar «Sí» se lo da a esta persona aunque allí
+# esté apagado.
+  [ ] Sí
+  [x] No
+
+Puede asignar un parte a un compañero:
+# Si no marcas nada, se aplica lo que diga la configuración
+# del hotel. Marcar «Sí» se lo da a esta persona aunque allí
+# esté apagado.
+  [x] Sí
+  [ ] No
+
+Puede asignar un parte a un responsable:
+# Si no marcas nada, se aplica lo que diga la configuración
+# del hotel. Marcar «Sí» se lo da a esta persona aunque allí
+# esté apagado.
+  [x] Sí
+  [ ] No
+
+Puede asignar a otro departamento:
+# Si no marcas nada, se aplica lo que diga la configuración
+# del hotel. Marcar «Sí» se lo da a esta persona aunque allí
+# esté apagado.
+  [ ] Sí
+  [x] No
+
+# ── Mensajes para esta persona ───────────────────────────────
+#
+# Esto es opcional. Son los textos que verá al entrar.
+
+Mensaje de bienvenida:
+# Se enseña UNA SOLA VEZ, la primera que entra. Puede ocupar
+# varias líneas: todas las que tengan sangría.
+  Bienvenida al equipo, Marta.
+  Tu responsable es Ana. Cualquier duda, pregúntale a ella.
+  La tablet del taller la recoges en recepción.
+
+Aviso para el próximo inicio:
+# Se enseña la próxima vez que entre, y se borra solo.
+# Para un recado puntual: «pásate por el almacén».
+  Mañana a las 8:00 hay revisión de extintores en la planta 3.
+
+Frase del día:
+# Si se le enseña una frase al entrar.
+  [x] Sí
+  [ ] No
+
+# ── Fin ──────────────────────────────────────────────────────

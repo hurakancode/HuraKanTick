@@ -1,0 +1,50 @@
+# ─────────────────────────────────────────────────────────────────────
+#  Nada de aquí se sirve por web.
+#
+#  En esta carpeta hay ficheros con nombres, correos y contraseñas
+#  iniciales. Si fueran accesibles por el navegador, cualquiera que
+#  acertase la dirección se descargaría el alta de una persona con su
+#  contraseña dentro.
+#
+#  Los ficheros se leen y se escriben desde PHP, por ruta de disco, así
+#  que negar el acceso web no estorba a nada.
+#
+#  OJO al tocar esto: una directiva que el Apache de turno no entienda
+#  no se ignora, devuelve un 500 y se lleva por delante todo lo que haya
+#  debajo. Por eso cada cosa va dentro de su <IfModule>.
+# ─────────────────────────────────────────────────────────────────────
+
+# Apache 2.4
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+
+# Apache 2.2
+<IfModule !mod_authz_core.c>
+    <IfModule mod_authz_host.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</IfModule>
+
+# Sin listado de la carpeta ni ejecución de nada.
+Options -Indexes
+
+# Y por si el acceso llegara a estar permitido: que esto no se ejecute
+# como código, se sirva como texto plano y nada más.
+<IfModule mod_mime.c>
+    RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .pht .phar
+    AddType text/plain .php .phtml .phar .pht
+</IfModule>
+
+# Sólo si PHP va como módulo de Apache: con FPM esta directiva no existe
+# y fuera del IfModule daría un 500.
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>

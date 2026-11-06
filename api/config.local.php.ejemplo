@@ -1,0 +1,28 @@
+<?php
+/**
+ * Copia este fichero a config.local.php y pon aquí tus datos reales.
+ * config.local.php tiene prioridad sobre config.php y no se sube al repositorio.
+ */
+return [
+    'db' => [
+        'driver'   => 'mysql',          // mysql | sqlite
+        'host'     => 'localhost',
+        'database' => 'hurakantick',
+        'user'     => 'hurakantick',
+        'password' => '',
+    ],
+    'auth' => [
+        // php -r "echo bin2hex(random_bytes(32));"
+        'app_key' => 'GENERA-UNA-CLAVE-ALEATORIA',
+    ],
+    'app' => [
+        'organizacion' => 'Servicios Técnicos',
+        'zona_horaria' => 'Europe/Madrid',
+        'niveles_zona' => ['Edificio', 'Planta', 'Habitación', 'Estancia'],
+        'debug'        => false,
+    ],
+    'cors_origins' => [
+        'https://localhost',
+        'capacitor://localhost',
+    ],
+];

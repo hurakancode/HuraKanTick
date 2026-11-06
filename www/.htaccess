@@ -1,0 +1,63 @@
+# =====================================================================
+#  Tipos MIME correctos.
+#
+#  Los módulos de JavaScript se bloquean si el servidor los envía como
+#  text/plain: el navegador aplica una comprobación estricta y no ejecuta
+#  nada. Es la causa más habitual de que la aplicación no arranque en un
+#  servidor propio (IIS, hosting compartido, Apache sin mime.types).
+# =====================================================================
+<IfModule mod_mime.c>
+  AddType text/javascript                 .js .mjs
+  AddType application/manifest+json       .webmanifest
+  AddType image/svg+xml                   .svg
+  AddType text/css                        .css
+  AddType image/webp                      .webp
+</IfModule>
+
+# El armazón no se cachea: así una actualización se ve enseguida.
+<IfModule mod_headers.c>
+  <FilesMatch "\.(html|webmanifest)$">
+    Header set Cache-Control "no-cache, must-revalidate"
+  </FilesMatch>
+  <FilesMatch "\.(js|css|png|svg|webp)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  # ESTE BLOQUE VA DESPUÉS DEL DE ARRIBA, Y NO ES CASUALIDAD.
+  #
+  # Estaba antes, y el de arriba —que también casa con «sw.js», porque
+  # termina en .js— lo pisaba: el trabajador de servicio salía con
+  # «max-age=604800». Una semana. Y el trabajador de servicio es
+  # justamente lo que trae las actualizaciones, así que subir una
+  # versión nueva no la hacía llegar a los móviles.
+  #
+  # Comprobado pidiendo la cabecera, no leyendo este fichero.
+  <FilesMatch "^sw\.js$">
+    Header set Cache-Control "no-cache, must-revalidate"
+    Header set Service-Worker-Allowed "/"
+  </FilesMatch>
+</IfModule>
+
+# =====================================================================
+#  Que otra página no pueda meter ésta dentro de un marco.
+#
+#  La sesión vive en el navegador, así que una página cualquiera que
+#  metiera HuraKan Tick en un marco invisible la tendría abierta con la sesión
+#  del técnico puesta, y un clic suyo en el sitio equivocado podría
+#  cerrar un parte, reasignarlo o borrarlo sin que él viera nada.
+#
+#  SAMEORIGIN y no DENY a propósito: así se puede seguir incrustando
+#  desde el propio servidor, por si algún día va dentro de la intranet
+#  del hotel. Desde fuera, no.
+# =====================================================================
+<IfModule mod_headers.c>
+  Header always set X-Frame-Options "SAMEORIGIN"
+  Header always set Content-Security-Policy "frame-ancestors 'self'"
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "same-origin"
+</IfModule>
+
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/javascript application/json application/manifest+json image/svg+xml
+</IfModule>
+
+Options -Indexes

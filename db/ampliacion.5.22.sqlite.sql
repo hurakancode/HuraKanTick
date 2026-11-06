@@ -1,0 +1,22 @@
+-- =====================================================================
+--  SSTT 5.22 — El bloqueo por intentos se suelta solo
+--
+--  La cuenta se bloquea tras ocho contraseñas mal, y hasta ahora ese
+--  bloqueo era PARA SIEMPRE: sólo lo quitaba un administrador.
+--
+--  Eso convierte una defensa en una avería. Los nombres de usuario de
+--  un hotel son adivinables —ana, luis, marta, el departamento, el
+--  nombre de pila— así que cualquiera, desde la wifi de clientes, deja
+--  al turno entero sin poder entrar escribiendo mal ocho contraseñas
+--  por persona. Incluida la del administrador, que es justo quien
+--  tendría que desbloquear a los demás.
+--
+--  Con esta columna el bloqueo automático caduca solo (quince minutos
+--  por defecto, configurable en api/config.php). Un atacante que
+--  insista consigue molestar un rato; no consigue parar el hotel.
+--
+--  El bloqueo que pone un administrador a mano es otra cosa y no
+--  caduca: ahí «bloqueo_hasta» se queda vacío.
+-- =====================================================================
+
+ALTER TABLE login ADD COLUMN bloqueo_hasta TEXT NULL;

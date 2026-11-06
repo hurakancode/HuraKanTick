@@ -1,0 +1,53 @@
+/*
+ * La versión y la firma de la aplicación Android, en un sitio aparte.
+ *
+ * Hasta la 7.90, build.gradle no leía android/key.properties: el manual
+ * (docs/APK.md) y compilar-apk.sh pedían crearlo, pero nada lo usaba.
+ * «./compilar-apk.sh --release» sacaba un APK SIN FIRMAR
+ * (app-release-unsigned.apk), que el móvil no instala, y el script decía
+ * que no lo encontraba porque buscaba app-release.apk.
+ *
+ * Y la aplicación se declaraba versión «1.0» (código 1) para siempre. Es
+ * el número con que Android decide si un APK es una actualización: con
+ * el mismo código, instalar la versión nueva encima falla.
+ *
+ * Va aparte de build.gradle para poder probarlo sin el SDK de Android.
+ */
+import groovy.json.JsonSlurper
+
+// android/ es el proyecto de Gradle; la aplicación está un nivel más arriba.
+def raizHurakan = rootProject.projectDir.parentFile
+def ficheroVersion = new File(raizHurakan, 'www/version.json')
+def version = new JsonSlurper().parse(ficheroVersion).version as String
+def trozos = (version.tokenize('.').collect { it as int } + [0, 0, 0]).take(3)
+if (trozos[1] > 99 || trozos[2] > 99) {
+    throw new GradleException("La versión ${version} no cabe en el código de Android (máximo X.99.99).")
+}
+
+ext.hurakanVersionName = version
+// 7.90.0 → 79000. Siempre crece al subir la versión, que es lo que mira Android.
+ext.hurakanVersionCode = trozos[0] * 10000 + trozos[1] * 100 + trozos[2]
+
+// La firma, si existe android/key.properties. Sin él, el APK de pruebas
+// sale igual; el firmado lo exige compilar-apk.sh antes de empezar.
+ext.hurakanFirma = null
+def ficheroFirma = rootProject.file('key.properties')
+if (ficheroFirma.exists()) {
+    def p = new Properties()
+    ficheroFirma.withInputStream { p.load(it) }
+    def faltan = ['storeFile', 'storePassword', 'keyAlias', 'keyPassword'].findAll { !p.getProperty(it) }
+    if (faltan) {
+        throw new GradleException("A android/key.properties le falta: ${faltan.join(', ')}")
+    }
+    // storeFile es relativo a android/app, como en el manual (../../ = la raíz).
+    def almacen = file(p.getProperty('storeFile'))
+    if (!almacen.exists()) {
+        throw new GradleException("No encuentro el keystore: ${almacen}")
+    }
+    ext.hurakanFirma = [
+        storeFile    : almacen,
+        storePassword: p.getProperty('storePassword'),
+        keyAlias     : p.getProperty('keyAlias'),
+        keyPassword  : p.getProperty('keyPassword'),
+    ]
+}

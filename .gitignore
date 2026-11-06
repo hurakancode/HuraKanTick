@@ -1,0 +1,25 @@
+api/config.local.php
+api/uploads/*
+!api/uploads/.htaccess
+db/*.sqlite
+db/*.sqlite-wal
+db/*.sqlite-shm
+node_modules/
+ios/
+
+# El proyecto Android SÍ se versiona: viene ya generado y configurado.
+# Lo que no, es lo que produce la compilación.
+android/app/build/
+android/build/
+android/.gradle/
+android/local.properties
+android/key.properties
+android/app/src/main/assets/public/
+*.keystore
+*.apk
+*.aab
+.DS_Store
+
+# Los paquetes montados no se versionan: se publican como Release.
+paquetes/*.zip
+__pycache__/

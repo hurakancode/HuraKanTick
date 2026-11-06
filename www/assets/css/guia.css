@@ -1,0 +1,398 @@
+/* =====================================================================
+   Guía de uso — hoja de estilo propia
+
+   Hereda los colores y tipografías de app.css: la guía tiene que
+   parecerse a lo que explica, o cuesta reconocer las pantallas.
+
+   Lo que añade es lo que una guía necesita y la aplicación no: un
+   índice que sigue el desplazamiento, capturas con marco de teléfono,
+   pasos numerados y un buscador que resalta lo que encuentra.
+   ===================================================================== */
+
+.guia {
+  max-width: 780px;
+  margin: 0 auto;
+  padding: 0 16px 96px;
+}
+
+/* --- Cabecera ------------------------------------------------------ */
+
+.guia-cab {
+  position: sticky; top: 0; z-index: 30;
+  margin: 0 -16px 18px;
+  padding: 14px 16px 12px;
+  background: var(--marca);
+  color: var(--sobre-marca);
+  box-shadow: 0 2px 14px rgb(0 0 0 / .13);
+}
+
+.guia-cab__fila { display: flex; align-items: center; gap: 12px; }
+
+.guia-cab h1 {
+  font-size: 1.05rem; font-weight: 750; margin: 0;
+  letter-spacing: -.01em; color: var(--sobre-marca);
+}
+
+.guia-cab p { margin: 2px 0 0; font-size: .78rem; opacity: .85; }
+
+.guia-volver {
+  display: inline-grid; place-items: center;
+  width: 38px; height: 38px; flex: 0 0 auto;
+  border: 0; border-radius: 12px;
+  background: rgb(255 255 255 / .16);
+  color: var(--sobre-marca);
+  cursor: pointer;
+  transition: background .16s ease, transform .16s ease;
+}
+.guia-volver:hover { background: rgb(255 255 255 / .27); }
+.guia-volver:active { transform: scale(.93); }
+
+/* --- Buscador ------------------------------------------------------ */
+
+.guia-buscar { position: relative; margin-top: 12px; }
+
+.guia-buscar input {
+  width: 100%; box-sizing: border-box;
+  padding: 11px 40px 11px 40px;
+  border: 0; border-radius: 12px;
+  background: rgb(255 255 255 / .95);
+  color: var(--tinta);
+  font: inherit; font-size: .92rem;
+}
+.guia-buscar input::placeholder { color: var(--tinta-3); }
+.guia-buscar input:focus {
+  outline: 3px solid var(--senal);
+  outline-offset: 1px;
+}
+
+.guia-buscar__lupa {
+  position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
+  color: var(--tinta-3); pointer-events: none; display: grid;
+}
+
+.guia-buscar__limpiar {
+  position: absolute; right: 8px; top: 50%; transform: translateY(-50%);
+  width: 26px; height: 26px; display: none; place-items: center;
+  border: 0; border-radius: 50%;
+  background: var(--superficie-3); color: var(--tinta-2);
+  cursor: pointer; font-size: 15px; line-height: 1;
+}
+.guia-buscar.tiene .guia-buscar__limpiar { display: grid; }
+
+.guia-buscar__cuenta {
+  margin: 8px 2px 0; font-size: .78rem;
+  color: var(--sobre-marca); opacity: .9; min-height: 1em;
+}
+
+/* --- Filtro por puesto --------------------------------------------- */
+
+.guia-puesto {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--r-m, 14px);
+  padding: 13px 14px 12px;
+  margin-bottom: 16px;
+}
+
+.guia-puesto__t {
+  margin: 0 0 9px;
+  font-size: .74rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--tinta-3);
+}
+
+.guia-puesto__b { display: flex; flex-wrap: wrap; gap: 7px; }
+
+.guia-puesto__b button {
+  padding: 7px 13px;
+  border: 1.5px solid var(--borde);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--tinta-2);
+  font: inherit; font-size: .86rem; font-weight: 600;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease,
+              color .15s ease, transform .15s ease;
+}
+.guia-puesto__b button:hover { border-color: var(--marca-clara); }
+.guia-puesto__b button:active { transform: scale(.95); }
+
+.guia-puesto__b button[aria-pressed="true"] {
+  background: var(--marca);
+  border-color: var(--marca);
+  color: var(--sobre-marca);
+}
+
+.guia-puesto__n {
+  margin: 10px 0 0; font-size: .82rem; color: var(--tinta-3);
+  line-height: 1.5; min-height: 1em;
+}
+
+/* --- Índice -------------------------------------------------------- */
+
+.guia-indice {
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: var(--r-m, 14px);
+  padding: 14px 16px;
+  margin-bottom: 22px;
+}
+
+.guia-indice h2 {
+  font-size: .74rem; text-transform: uppercase; letter-spacing: .07em;
+  color: var(--tinta-3); margin: 0 0 10px;
+}
+
+.guia-indice ol { margin: 0; padding-left: 20px; }
+.guia-indice li { margin: 5px 0; }
+.guia-indice a {
+  color: var(--marca); text-decoration: none; font-weight: 600;
+  font-size: .93rem;
+}
+.guia-indice a:hover { text-decoration: underline; }
+
+/* --- Secciones ----------------------------------------------------- */
+
+.guia-seccion {
+  margin: 0 0 34px;
+  scroll-margin-top: 130px;
+}
+
+.guia-seccion > h2 {
+  display: flex; align-items: center; gap: 10px;
+  font-size: 1.28rem; font-weight: 760; letter-spacing: -.02em;
+  margin: 0 0 6px; color: var(--tinta);
+}
+
+.guia-seccion__n {
+  display: grid; place-items: center;
+  width: 30px; height: 30px; flex: 0 0 auto;
+  border-radius: 9px;
+  background: var(--marca-tenue); color: var(--marca);
+  font-size: .88rem; font-weight: 780;
+}
+
+.guia-seccion__intro {
+  color: var(--tinta-2); margin: 0 0 16px; line-height: 1.58;
+}
+
+.guia-seccion h3 {
+  font-size: 1.02rem; font-weight: 700; margin: 24px 0 8px;
+  color: var(--tinta);
+}
+
+/* --- Pasos --------------------------------------------------------- */
+
+.guia-pasos { list-style: none; margin: 0; padding: 0; counter-reset: paso; }
+
+.guia-paso {
+  position: relative;
+  padding: 0 0 20px 42px;
+  counter-increment: paso;
+}
+
+/* La línea que une un paso con el siguiente */
+.guia-paso::before {
+  content: '';
+  position: absolute; left: 14px; top: 30px; bottom: 0;
+  width: 2px; background: var(--borde);
+}
+.guia-paso:last-child::before { display: none; }
+
+.guia-paso::after {
+  content: counter(paso);
+  position: absolute; left: 0; top: 0;
+  width: 30px; height: 30px;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  background: var(--marca); color: var(--sobre-marca);
+  font-size: .82rem; font-weight: 740;
+}
+
+.guia-paso > h4 {
+  font-size: .98rem; font-weight: 690; margin: 4px 0 5px;
+  color: var(--tinta);
+}
+.guia-paso > p { margin: 0 0 8px; color: var(--tinta-2); line-height: 1.56; }
+
+/* --- Capturas ------------------------------------------------------ */
+
+.guia-figuras {
+  display: flex; flex-wrap: wrap; gap: 22px;
+  margin: 18px 0 8px;
+}
+
+.guia-figura { margin: 0; flex: 0 0 auto; max-width: 250px; }
+
+/* El marco de teléfono: sin él, una captura de pantalla completa
+   parece una web mal maquetada en vez de un móvil. */
+.guia-movil {
+  position: relative;
+  border: 8px solid #10262C;
+  border-radius: 30px;
+  overflow: hidden;
+  background: #10262C;
+  box-shadow: 0 10px 30px rgb(11 25 29 / .22);
+  transition: transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s ease;
+}
+.guia-movil:hover {
+  transform: translateY(-5px) scale(1.012);
+  box-shadow: 0 18px 42px rgb(11 25 29 / .3);
+}
+
+.guia-movil img { display: block; width: 100%; height: auto; }
+
+.guia-figura figcaption {
+  margin-top: 9px; font-size: .82rem; color: var(--tinta-3);
+  line-height: 1.45; text-align: center;
+}
+
+/* --- Avisos -------------------------------------------------------- */
+
+.guia-nota {
+  display: flex; gap: 11px;
+  padding: 12px 14px; margin: 14px 0;
+  border-radius: 12px;
+  border-left: 4px solid var(--marca);
+  background: var(--marca-tenue);
+  color: var(--tinta-2); font-size: .9rem; line-height: 1.55;
+}
+.guia-nota strong { color: var(--tinta); }
+
+.guia-nota--ojo { border-left-color: var(--aviso); background: var(--senal-tenue); }
+.guia-nota--no  { border-left-color: var(--peligro);
+                  background: color-mix(in srgb, var(--peligro) 9%, transparent); }
+
+/* --- Fichas de personas -------------------------------------------- */
+
+.guia-gente { display: grid; gap: 10px; margin: 16px 0; }
+
+.guia-persona {
+  display: flex; align-items: center; gap: 12px;
+  padding: 11px 13px;
+  background: var(--superficie);
+  border: 1px solid var(--borde);
+  border-radius: 13px;
+  transition: border-color .16s ease, transform .16s ease;
+}
+.guia-persona:hover { border-color: var(--marca-clara); transform: translateX(3px); }
+
+.guia-persona__ini {
+  width: 40px; height: 40px; flex: 0 0 auto;
+  display: grid; place-items: center; border-radius: 50%;
+  background: var(--marca-tenue); color: var(--marca);
+  font-weight: 740; font-size: .9rem;
+}
+
+.guia-persona__txt { min-width: 0; flex: 1; }
+.guia-persona__txt b { display: block; font-size: .95rem; color: var(--tinta); }
+.guia-persona__txt small {
+  display: block; color: var(--tinta-3); font-size: .8rem;
+  overflow-wrap: anywhere;
+}
+
+.guia-papel {
+  flex: 0 0 auto; padding: 3px 9px; border-radius: 999px;
+  font-size: .72rem; font-weight: 700; text-transform: uppercase;
+  letter-spacing: .03em;
+  background: var(--superficie-3); color: var(--tinta-2);
+}
+.guia-papel--admin { background: var(--marca); color: var(--sobre-marca); }
+.guia-papel--resp  { background: var(--marca-tenue); color: var(--marca); }
+.guia-papel--tec   { background: var(--senal-tenue); color: var(--aviso); }
+
+/* --- Buscador: resaltado y ocultación ------------------------------ */
+
+mark.guia-marca {
+  background: var(--senal);
+  color: #1a1200;
+  border-radius: 3px; padding: 0 2px;
+  animation: guia-late .5s ease;
+}
+
+@keyframes guia-late {
+  0%   { background: var(--senal); transform: scale(1); }
+  40%  { background: #FFD166; transform: scale(1.08); }
+  100% { background: var(--senal); transform: scale(1); }
+}
+
+.guia-oculto { display: none !important; }
+
+.guia-sinnada {
+  display: none;
+  padding: 26px 16px; text-align: center;
+  color: var(--tinta-3);
+}
+.guia-sinnada.se-ve { display: block; }
+
+/* --- Entrada al hacer scroll --------------------------------------- */
+
+.guia-entra {
+  opacity: 0; transform: translateY(14px);
+  transition: opacity .5s ease, transform .5s cubic-bezier(.2,.7,.3,1);
+}
+.guia-entra.dentro { opacity: 1; transform: none; }
+
+/* Quien pida menos movimiento, no lo tiene: la animación es un adorno
+   y para algunas personas es un problema de verdad. */
+@media (prefers-reduced-motion: reduce) {
+  .guia-entra { opacity: 1; transform: none; transition: none; }
+  .guia-movil { transition: none; }
+  .guia-movil:hover { transform: none; }
+  mark.guia-marca { animation: none; }
+  .guia-persona:hover { transform: none; }
+  html { scroll-behavior: auto !important; }
+}
+
+/* --- Volver arriba -------------------------------------------------- */
+
+.guia-arriba {
+  position: fixed; right: 16px; bottom: 20px; z-index: 40;
+  width: 46px; height: 46px;
+  display: grid; place-items: center;
+  border: 0; border-radius: 50%;
+  background: var(--marca); color: var(--sobre-marca);
+  box-shadow: 0 6px 18px rgb(11 25 29 / .3);
+  cursor: pointer;
+  opacity: 0; pointer-events: none;
+  transform: translateY(12px);
+  transition: opacity .22s ease, transform .22s ease;
+}
+.guia-arriba.se-ve { opacity: 1; pointer-events: auto; transform: none; }
+.guia-arriba:active { transform: scale(.92); }
+
+/* --- Pantallas anchas ---------------------------------------------- */
+
+@media (min-width: 900px) {
+  .guia { max-width: 1080px; display: grid;
+          grid-template-columns: 250px 1fr; gap: 34px;
+          align-items: start; }
+  .guia-cab { grid-column: 1 / -1; }
+  .guia-indice { position: sticky; top: 150px; margin-bottom: 0; }
+  .guia-cuerpo { min-width: 0; }
+}
+
+/* --- Capturas de ordenador ----------------------------------------- */
+
+/* Una captura apaisada no cabe en un marco de teléfono: va en uno de
+   pantalla, a todo el ancho de la columna. */
+.guia-figura--ancha { max-width: 100%; margin: 16px 0 6px; }
+
+.guia-escritorio {
+  border: 6px solid #10262C;
+  border-bottom-width: 14px;
+  border-radius: 12px;
+  overflow: hidden;
+  background: #10262C;
+  box-shadow: 0 10px 30px rgb(11 25 29 / .22);
+  transition: transform .22s cubic-bezier(.2,.7,.3,1), box-shadow .22s ease;
+}
+.guia-escritorio:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 42px rgb(11 25 29 / .3);
+}
+.guia-escritorio img { display: block; width: 100%; height: auto; }
+
+@media (prefers-reduced-motion: reduce) {
+  .guia-escritorio { transition: none; }
+  .guia-escritorio:hover { transform: none; }
+}

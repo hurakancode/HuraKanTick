@@ -1,0 +1,29 @@
+{
+  "appId": "com.hurakancode.hurakantick",
+  "appName": "HuraKan Tick",
+  "webDir": "www",
+  "bundledWebRuntime": false,
+  "android": {
+    "allowMixedContent": false,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": false,
+    "backgroundColor": "#EDF1F2"
+  },
+  "server": {
+    "androidScheme": "https",
+    "cleartext": false
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 800,
+      "backgroundColor": "#0B5563",
+      "androidSplashResourceName": "splash",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false
+    },
+    "CapacitorHttp": { "enabled": false },
+    "Camera": {
+      "permissions": ["camera", "photos"]
+    }
+  }
+}

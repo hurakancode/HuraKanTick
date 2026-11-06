@@ -1,0 +1,17 @@
+# Los scripts de mantenimiento se ejecutan desde la consola del servidor.
+# Por web sólo se permiten el instalador y el clasificador, que además
+# piden clave y desde el navegador no pueden borrar nada.
+<IfModule mod_authz_core.c>
+  Require all denied
+  <FilesMatch "^(instalar|instalar_gui|clasificar|importar|ubicaciones)\.php$">
+    Require all granted
+  </FilesMatch>
+</IfModule>
+<IfModule !mod_authz_core.c>
+  Order deny,allow
+  Deny from all
+  <FilesMatch "^(instalar|instalar_gui|clasificar|importar|ubicaciones)\.php$">
+    Allow from all
+  </FilesMatch>
+</IfModule>
+Options -Indexes

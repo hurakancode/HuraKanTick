@@ -1,0 +1,37 @@
+{
+  "name": "HuraKan Tick · Ticketing",
+  "short_name": "HuraKan Tick",
+  "description": "Alta y seguimiento de incidencias de servicios técnicos. Funciona sin conexión y sincroniza al recuperar la red.",
+  "lang": "es",
+  "dir": "ltr",
+  "start_url": "./index.html#/panel",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "portrait-primary",
+  "background_color": "#EDF1F2",
+  "theme_color": "#0B5563",
+  "categories": ["productivity", "business", "utilities"],
+  "icons": [
+    { "src": "assets/icons/icono.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "assets/icons/icono-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icono-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/icons/icono-mascara.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ],
+  "shortcuts": [
+    {
+      "name": "Nuevo parte",
+      "short_name": "Nuevo",
+      "description": "Abrir una incidencia",
+      "url": "./index.html#/nuevo",
+      "icons": [{ "src": "assets/icons/icono-192.png", "sizes": "192x192" }]
+    },
+    {
+      "name": "Mis partes",
+      "short_name": "Míos",
+      "description": "Lo que tengo asignado",
+      "url": "./index.html#/mios",
+      "icons": [{ "src": "assets/icons/icono-192.png", "sizes": "192x192" }]
+    }
+  ]
+}
